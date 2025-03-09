@@ -156,8 +156,8 @@
             }
 
             .typed-cursor {
-                animation: blink 1s infinite;
-                /* 无限循环闪烁 */
+                animation: blink 1.2s ease-in-out infinite;
+                /* 调整动画曲线和时长 */
             }
 
             @keyframes blink {
@@ -167,12 +167,23 @@
                     opacity: 1;
                 }
 
-                /* 显示 */
                 50% {
                     opacity: 0;
                 }
+            }
 
-                /* 隐藏 */
+            /* 自定义过渡动画 */
+            .drawer-navbar-item-sub [data-target] {
+                transition: height 0.3s ease-in-out, opacity 0.2s ease;
+            }
+
+            .fa-chevron-right {
+                transform: rotate(0deg);
+                transition: transform 0.3s ease;
+            }
+
+            .fa-chevron-right.rotate-90 {
+                transform: rotate(90deg);
             }
         </style>
         <div
@@ -214,17 +225,41 @@
             </div>
             <script>
                 const subtitle = document.getElementById("subtitle");
-                const text = "This is my blog";
-                let index = 0;
+                const texts = ["This is my blog"]; // 可自定义多段文本
+                let textIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+                const speed = 150; // 打字速度（越大越慢）
+                const deleteSpeed = 100; // 删除速度（独立控制）
 
-                function typeText() {
-                    subtitle.textContent = text.slice(0, index);
-                    index++;
-                    if (index > text.length) index = 0; // 循环播放
-                    setTimeout(typeText, 100);
+                function typeEffect() {
+                    const currentText = texts[textIndex];
+
+                    // 判断当前阶段：输入 or 删除
+                    if (!isDeleting) {
+                        subtitle.textContent = currentText.slice(0, charIndex + 1);
+                        charIndex++;
+                    } else {
+                        subtitle.textContent = currentText.slice(0, charIndex - 1);
+                        charIndex--;
+                    }
+
+                    // 阶段切换逻辑
+                    if (!isDeleting && charIndex === currentText.length) {
+                        isDeleting = true;
+                        setTimeout(typeEffect, 1000); // 完成输入后暂停 1 秒再删除
+                    } else if (isDeleting && charIndex === 0) {
+                        isDeleting = false;
+                        textIndex = (textIndex + 1) % texts.length; // 循环切换文本
+                        setTimeout(typeEffect, 500); // 删除完成后暂停 0.5 秒再开始下一段
+                    } else {
+                        const delay = isDeleting ? deleteSpeed : speed;
+                        setTimeout(typeEffect, delay);
+                    }
                 }
 
-                typeText(); // 开始动画
+                // 初始化动画
+                typeEffect();
 
                 const scrollToMain = () => {
                     console.log("scroll");
@@ -325,43 +360,97 @@
                                     href="/"><span>ARCHIVES </span><i class="fa-regular fa-archive fa-sm fa-fw"></i></a>
                             </li>
 
+                            <!-- 修改后的导航项 -->
                             <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                                <!-- 父菜单触发按钮 -->
                                 <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
-                                    navbar-data-toggle="submenu-Links" data-event-listener-added="true"><span>LINKS
-                                    </span><i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i></div>
-                                <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                    navbar-data-toggle="submenu-Links" aria-expanded="false"
+                                    aria-controls="submenu-Links">
+                                    <span>LINKS</span>
+                                    <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all duration-300"></i>
+                                </div>
+
+                                <!-- 子菜单容器 -->
+                                <div id="submenu-Links"
+                                    class="flex-col items-start px-2 py-2 h-0 overflow-hidden transition-all duration-300"
+                                    aria-hidden="true">
                                     <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl"
-                                        data-navbar-initialized="1"><a class="text-third-text-color text-xl"
-                                            target="_blank" rel="noopener" href="/">ABOUT</a>
+                                        data-navbar-initialized="1">
+                                        <a class="text-third-text-color text-xl" target="_blank" rel="noopener"
+                                            href="/">ABOUT</a>
                                     </div>
                                     <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl"
-                                        data-navbar-initialized="1"><a class="text-third-text-color text-xl"
-                                            target="_blank" rel="noopener" href="/">BLOG</a></div>
+                                        data-navbar-initialized="1">
+                                        <a class="text-third-text-color text-xl" target="_blank" rel="noopener"
+                                            href="/">BLOG</a>
+                                    </div>
                                     <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl"
-                                        data-navbar-initialized="1"><a class="text-third-text-color text-xl"
-                                            target="_blank" href="/">SHOWCASE</a></div>
+                                        data-navbar-initialized="1">
+                                        <a class="text-third-text-color text-xl" target="_blank" href="/">SHOWCASE</a>
+                                    </div>
                                 </div>
                             </li>
+
 
                         </ul>
 
                         <div class="statistics flex justify-around my-2.5">
-                            <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/">
+                            <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
                                 <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
                                 <div class="label text-third-text-color text-sm">Tags</div>
                             </a>
-                            <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/">
+                            <a class="item tag-count-item flex flex-col justify-center items-center w-20"
+                                href="/categories">
                                 <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
                                 <div class="label text-third-text-color text-sm">Categories</div>
                             </a>
-                            <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/">
+                            <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/posts">
                                 <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">1</div>
                                 <div class="label text-third-text-color text-sm">Posts</div>
                             </a>
                         </div>
+
+                        <script>
+                            // 菜单交互逻辑
+                            document.querySelectorAll('[navbar-data-toggle^="submenu-"]').forEach(trigger => {
+                                const targetId = trigger.getAttribute('navbar-data-toggle').replace('submenu-', '');
+                                const targetMenu = document.getElementById(targetId);
+
+                                // 初始化菜单状态
+                                targetMenu.style.height = '0';
+
+                                trigger.addEventListener('click', function () {
+                                    const targetId = this.getAttribute('navbar-data-toggle').replace('submenu-', '');
+                                    const targetMenu = document.getElementById(targetId);
+                                    const icon = this.querySelector('.fa-chevron-right');
+
+                                    // 关闭其他菜单
+                                    document.querySelectorAll('[navbar-data-toggle^="submenu-"]').forEach(otherTrigger => {
+                                        if (otherTrigger !== this) {
+                                            const otherTargetId = otherTrigger.getAttribute('navbar-data-toggle').replace('submenu-', '');
+                                            const otherTarget = document.getElementById(otherTargetId);
+                                            otherTarget.style.height = '0';
+                                            otherTrigger.querySelector('.fa-chevron-right').classList.remove('rotate-90');
+                                            otherTrigger.setAttribute('aria-expanded', 'false');
+                                        }
+                                    });
+
+                                    // 切换当前菜单
+                                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                                    const menuHeight = targetMenu.scrollHeight;
+
+                                    targetMenu.style.height = isExpanded ? '0' : `${menuHeight}px`;
+                                    icon.classList.toggle('rotate-90', !isExpanded);
+                                    this.setAttribute('aria-expanded', (!isExpanded).toString());
+                                    targetMenu.setAttribute('aria-hidden', isExpanded.toString());
+                                });
+                            });
+                        </script>
+
                     </div>
 
                     <div class="window-mask"></div>
+
 
                 </header>
 
