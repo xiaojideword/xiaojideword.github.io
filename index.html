@@ -154,6 +154,26 @@
             .home-article-sticky-label {
                 backdrop-filter: none !important;
             }
+
+            .typed-cursor {
+                animation: blink 1s infinite;
+                /* 无限循环闪烁 */
+            }
+
+            @keyframes blink {
+
+                0%,
+                100% {
+                    opacity: 1;
+                }
+
+                /* 显示 */
+                50% {
+                    opacity: 0;
+                }
+
+                /* 隐藏 */
+            }
         </style>
         <div
             class="home-banner-background transition-fade fixed top-0 left-0 w-screen h-screen scale-125 sm:scale-110 box-border will-change-transform bg-cover">
@@ -171,7 +191,7 @@
                     Welcome
 
 
-                    <p><i id="subtitle">This is my blog</i><span class="typed-cursor" aria-hidden="true">|</span></p>
+                    <p><i id="subtitle"></i><span class="typed-cursor" aria-hidden="true">|</span></p>
 
                 </div>
 
@@ -183,20 +203,34 @@
                     </div>
                     <div
                         class="social-contacts px-6 py-3 bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-lg border border-white/20 dark:border-gray-500/30 shadow-redefine-flat rounded-full flex flex-row gap-3 items-center">
-                        <span class="social-contact-item github"><a target="_blank" href="/"><i
+                        <span class="social-contact-item github"><a href="/"><i
                                     class="fa-brands fa-fw fa-lg fa-github"></i> </a></span><span
                             class="social-contact-item email"><a href="/"><i class="fa-solid fa-fw fa-at fa-lg"></i>
-                            </a></span><span class="social-contact-item npm"><a target="_blank" href="/"><i
+                            </a></span><span class="social-contact-item npm"><a href="/"><i
                                     class="fa-brands fa-fw fa-lg fa-npm"></i></a></span>
                     </div>
                 </div>
 
             </div>
             <script>
+                const subtitle = document.getElementById("subtitle");
+                const text = "This is my blog";
+                let index = 0;
+
+                function typeText() {
+                    subtitle.textContent = text.slice(0, index);
+                    index++;
+                    if (index > text.length) index = 0; // 循环播放
+                    setTimeout(typeText, 100);
+                }
+
+                typeText(); // 开始动画
+
                 const scrollToMain = () => {
-                    console.log('scroll');
-                    const target = document.querySelector('.main-content-container');
-                    target.scrollIntoView({ behavior: 'smooth' });
+                    console.log("scroll");
+                    document.querySelector(".main-content-container").scrollIntoView({
+                        behavior: "smooth"
+                    })
                 }
             </script>
         </div>
@@ -242,8 +276,8 @@
                                             false;&#34;=""><i class="fa-regular fa-link fa-fw"></i> LINKS <i
                                                 class="fa-solid fa-chevron-down fa-fw"></i></a>
                                         <ul class="sub-menu">
-                                            <li><a target="_blank" rel="noopener" href="/">ABOUT</a></li>
-                                            <li><a target="_blank" rel="noopener" href="/">BLOG</a>
+                                            <li><a rel="noopener" href="/">ABOUT</a></li>
+                                            <li><a rel="noopener" href="/">BLOG</a>
                                             </li>
                                             <li><a href="/">SHOWCASE</a></li>
                                         </ul>
@@ -298,14 +332,14 @@
                                 <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
                                     <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl"
                                         data-navbar-initialized="1"><a class="text-third-text-color text-xl"
-                                            target="_blank" rel="noopener" href="">ABOUT</a>
+                                            target="_blank" rel="noopener" href="/">ABOUT</a>
                                     </div>
                                     <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl"
                                         data-navbar-initialized="1"><a class="text-third-text-color text-xl"
-                                            target="_blank" rel="noopener" href="">BLOG</a></div>
+                                            target="_blank" rel="noopener" href="/">BLOG</a></div>
                                     <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl"
                                         data-navbar-initialized="1"><a class="text-third-text-color text-xl"
-                                            href="/">SHOWCASE</a></div>
+                                            target="_blank" href="/">SHOWCASE</a></div>
                                 </div>
                             </li>
 
@@ -345,23 +379,23 @@
                                 <div class="site-name">welcome</div>
                                 <div class="announcement">Redefine your writing.</div>
                             </div><a class="links" href="/"><i class="fa-regular fa-archive icon-space"></i>
-                                <span class="link-name">Archives</span> </a><a class="links" href="/tags"><i
+                                <span class="link-name">Archives</span> </a><a class="links" href="/"><i
                                     class="fa-regular fa-tags icon-space"></i> <span class="link-name">Tags</span>
                             </a><a class="links" href="/"><i class="fa-regular fa-folder icon-space"></i>
-                                <span class="link-name">Categories</span> </a><a class="links" href="/essays"><i
+                                <span class="link-name">Categories</span> </a><a class="links" href="/"><i
                                     class="fa-regular fa-comment-dots icon-space"></i> <span
-                                    class="link-name">Shuoshuo</span> </a><a class="links" href="/masonry"><i
+                                    class="link-name">Shuoshuo</span> </a><a class="links" href="/"><i
                                     class="fa-regular fa-images icon-space"></i> <span class="link-name">Photos</span>
                             </a><a class="links" href="/"><i class="fa-regular fa-bookmark icon-space"></i>
                                 <span class="link-name">Bookmarks</span></a>
                         </div>
 
-                        <div class="sidebar-content">
+                        <div class="sidebar-content" margintop>
                             <div class="avatar flex justify-center">
                                 <img src="/images/redefine-avatar.svg">
                             </div>
                             <div class="author flex flex-col justify-center my-2.5 mx-0">
-                                <div class="name">The Redefine Team</div>
+                                <div class="name">xiaojideblog</div>
 
                                 <div class="label">Lv1</div>
 
@@ -409,10 +443,7 @@
                                     <div class="home-article-content markdown-body">
 
 
-                                        Welcome to Hexo! This is your very first post. Check documentation for more
-                                        info. If you get any problems when using Hexo, you can find the answer in
-                                        troubleshooting or you can ask me on GitHub.
-                                        这里...
+                                        Welcome, friend. This article recommends the movie "Ready Player One".
 
                                     </div>
 
