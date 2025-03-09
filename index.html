@@ -157,7 +157,6 @@
 
             .typed-cursor {
                 animation: blink 1.2s ease-in-out infinite;
-                /* 调整动画曲线和时长 */
             }
 
             @keyframes blink {
@@ -226,49 +225,70 @@
 
             </div>
             <script>
-                const subtitle = document.getElementById("subtitle");
-                const texts = ["This is my blog."]; // 可自定义多段文本
-                let textIndex = 0;
-                let charIndex = 0;
-                let isDeleting = false;
-                const speed = 150; // 打字速度（越大越慢）
-                const deleteSpeed = 100; // 删除速度（独立控制）
+                // 动画控制对象
+                const typingEffect = {
+                    timer: null,
+                    texts: ["This is my blog."],
+                    textIndex: 0,
+                    charIndex: 0,
+                    isDeleting: false,
+                    speed: 150,
+                    deleteSpeed: 100,
 
-                function typeEffect() {
-                    const currentText = texts[textIndex];
+                    init() {
+                        // 清除已有定时器
+                        if (this.timer) clearTimeout(this.timer)
 
-                    // 判断当前阶段：输入 or 删除
-                    if (!isDeleting) {
-                        subtitle.textContent = currentText.slice(0, charIndex + 1);
-                        charIndex++;
-                    } else {
-                        subtitle.textContent = currentText.slice(0, charIndex - 1);
-                        charIndex--;
-                    }
+                        // 重置初始状态
+                        this.textIndex = 0
+                        this.charIndex = 0
+                        this.isDeleting = false
+                        document.getElementById("subtitle").textContent = ""
 
-                    // 阶段切换逻辑
-                    if (!isDeleting && charIndex === currentText.length) {
-                        isDeleting = true;
-                        setTimeout(typeEffect, 1000); // 完成输入后暂停 1 秒再删除
-                    } else if (isDeleting && charIndex === 0) {
-                        isDeleting = false;
-                        textIndex = (textIndex + 1) % texts.length; // 循环切换文本
-                        setTimeout(typeEffect, 500); // 删除完成后暂停 0.5 秒再开始下一段
-                    } else {
-                        const delay = isDeleting ? deleteSpeed : speed;
-                        setTimeout(typeEffect, delay);
+                        // 开始动画
+                        this.typeEffect()
+                    },
+
+                    typeEffect() {
+                        const currentText = this.texts[this.textIndex]
+                        const subtitleEl = document.getElementById("subtitle")
+
+                        if (!this.isDeleting) {
+                            subtitleEl.textContent = currentText.slice(0, this.charIndex + 1)
+                            this.charIndex++
+                        } else {
+                            subtitleEl.textContent = currentText.slice(0, this.charIndex - 1)
+                            this.charIndex--
+                        }
+
+                        if (!this.isDeleting && this.charIndex === currentText.length) {
+                            this.isDeleting = true
+                            this.timer = setTimeout(() => this.typeEffect(), 1000)
+                        } else if (this.isDeleting && this.charIndex === 0) {
+                            this.isDeleting = false
+                            this.textIndex = (this.textIndex + 1) % this.texts.length
+                            this.timer = setTimeout(() => this.typeEffect(), 500)
+                        } else {
+                            const delay = this.isDeleting ? this.deleteSpeed : this.speed
+                            this.timer = setTimeout(() => this.typeEffect(), delay)
+                        }
                     }
                 }
+
+                // 页面可见性变化处理
+                document.addEventListener('visibilitychange', () => {
+                    if (document.visibilityState === 'visible') {
+                        typingEffect.init()
+                    } else {
+                        clearTimeout(typingEffect.timer)
+                    }
+                })
 
                 // 初始化动画
-                typeEffect();
-
-                const scrollToMain = () => {
-                    console.log("scroll");
-                    document.querySelector(".main-content-container").scrollIntoView({
-                        behavior: "smooth"
-                    })
-                }
+                window.addEventListener('load', typingEffect.init.bind(typingEffect))
+                window.addEventListener('pageshow', (event) => {
+                    if (event.persisted) typingEffect.init()
+                })
             </script>
         </div>
 
@@ -392,6 +412,42 @@
                                 </div>
                             </li>
 
+                            <script>
+                                // 菜单交互逻辑
+                                document.querySelectorAll('[data-submenu-trigger]').forEach(trigger => {
+                                    // 初始化隐藏所有子菜单
+                                    const targetId = trigger.dataset.submenuTrigger;
+                                    const targetMenu = document.querySelector(`[data-submenu-target="${targetId}"]`);
+                                    targetMenu.style.height = '0';
+
+                                    trigger.addEventListener('click', function () {
+                                        const targetId = this.dataset.submenuTrigger;
+                                        const targetMenu = document.querySelector(`[data-submenu-target="${targetId}"]`);
+                                        const icon = this.querySelector('.fa-chevron-right');
+
+                                        // 关闭其他菜单
+                                        document.querySelectorAll('[data-submenu-trigger]').forEach(otherTrigger => {
+                                            if (otherTrigger !== this) {
+                                                const otherTargetId = otherTrigger.dataset.submenuTrigger;
+                                                const otherTarget = document.querySelector(`[data-submenu-target="${otherTargetId}"]`);
+                                                otherTarget.style.height = '0';
+                                                otherTrigger.querySelector('.fa-chevron-right').classList.remove('rotated');
+                                            }
+                                        });
+
+                                        // 切换当前菜单
+                                        const isOpen = targetMenu.style.height !== '0px';
+                                        if (isOpen) {
+                                            targetMenu.style.height = '0';
+                                            icon.classList.remove('rotated');
+                                        } else {
+                                            targetMenu.style.height = targetMenu.scrollHeight + 'px';
+                                            icon.classList.add('rotated');
+                                        }
+                                    });
+                                });
+                            </script>
+
                         </ul>
 
                         <div class="statistics flex justify-around my-2.5">
@@ -409,42 +465,6 @@
                                 <div class="label text-third-text-color text-sm">Posts</div>
                             </a>
                         </div>
-
-                        <script>
-                            // 菜单交互逻辑
-                            document.querySelectorAll('[data-submenu-trigger]').forEach(trigger => {
-                                // 初始化隐藏所有子菜单
-                                const targetId = trigger.dataset.submenuTrigger;
-                                const targetMenu = document.querySelector(`[data-submenu-target="${targetId}"]`);
-                                targetMenu.style.height = '0';
-
-                                trigger.addEventListener('click', function () {
-                                    const targetId = this.dataset.submenuTrigger;
-                                    const targetMenu = document.querySelector(`[data-submenu-target="${targetId}"]`);
-                                    const icon = this.querySelector('.fa-chevron-right');
-
-                                    // 关闭其他菜单
-                                    document.querySelectorAll('[data-submenu-trigger]').forEach(otherTrigger => {
-                                        if (otherTrigger !== this) {
-                                            const otherTargetId = otherTrigger.dataset.submenuTrigger;
-                                            const otherTarget = document.querySelector(`[data-submenu-target="${otherTargetId}"]`);
-                                            otherTarget.style.height = '0';
-                                            otherTrigger.querySelector('.fa-chevron-right').classList.remove('rotated');
-                                        }
-                                    });
-
-                                    // 切换当前菜单
-                                    const isOpen = targetMenu.style.height !== '0px';
-                                    if (isOpen) {
-                                        targetMenu.style.height = '0';
-                                        icon.classList.remove('rotated');
-                                    } else {
-                                        targetMenu.style.height = targetMenu.scrollHeight + 'px';
-                                        icon.classList.add('rotated');
-                                    }
-                                });
-                            });
-                        </script>
 
                     </div>
 
