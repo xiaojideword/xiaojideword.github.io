@@ -170,22 +170,6 @@
                     opacity: 0;
                 }
             }
-
-            /* 自定义过渡动画 */
-            .drawer-navbar-item-sub .submenu-container {
-                height: 0;
-                overflow: hidden;
-                transition: height 0.3s ease-in-out;
-            }
-
-            /* 箭头旋转动画 */
-            .fa-chevron-right {
-                transition: transform 0.3s ease;
-            }
-
-            .fa-chevron-right.rotated {
-                transform: rotate(90deg);
-            }
         </style>
         <div
             class="home-banner-background transition-fade fixed top-0 left-0 w-screen h-screen scale-125 sm:scale-110 box-border will-change-transform bg-cover">
@@ -225,70 +209,96 @@
 
             </div>
             <script>
-                // 动画控制对象
                 const typingEffect = {
-                    timer: null,
+                    frameId: null,
+                    lastTime: 0,
                     texts: ["This is my blog."],
                     textIndex: 0,
                     charIndex: 0,
                     isDeleting: false,
-                    speed: 150,
-                    deleteSpeed: 100,
+                    speed: 150,       // 字符输入速度 (ms/字符)
+                    deleteSpeed: 80,  // 字符删除速度 (ms/字符)
+                    pauseDuration: 1000, // 输入完成后的暂停时间
 
                     init() {
-                        // 清除已有定时器
-                        if (this.timer) clearTimeout(this.timer)
+                        cancelAnimationFrame(this.frameId)
+                        this.resetState()
+                        this.animate(performance.now())
+                    },
 
-                        // 重置初始状态
+                    resetState() {
                         this.textIndex = 0
                         this.charIndex = 0
                         this.isDeleting = false
                         document.getElementById("subtitle").textContent = ""
-
-                        // 开始动画
-                        this.typeEffect()
                     },
 
-                    typeEffect() {
+                    animate(timestamp) {
+                        const deltaTime = timestamp - this.lastTime
                         const currentText = this.texts[this.textIndex]
+                        const targetDelay = this.isDeleting ? this.deleteSpeed : this.speed
+
+                        if (deltaTime >= targetDelay) {
+                            this.updateText(currentText)
+                            this.lastTime = timestamp
+                        }
+
+                        this.frameId = requestAnimationFrame((ts) => this.animate(ts))
+                    },
+
+                    updateText(currentText) {
                         const subtitleEl = document.getElementById("subtitle")
 
                         if (!this.isDeleting) {
-                            subtitleEl.textContent = currentText.slice(0, this.charIndex + 1)
-                            this.charIndex++
-                        } else {
-                            subtitleEl.textContent = currentText.slice(0, this.charIndex - 1)
-                            this.charIndex--
-                        }
+                            // 输入模式
+                            this.charIndex = Math.min(this.charIndex + 1, currentText.length)
+                            subtitleEl.textContent = currentText.slice(0, this.charIndex)
 
-                        if (!this.isDeleting && this.charIndex === currentText.length) {
-                            this.isDeleting = true
-                            this.timer = setTimeout(() => this.typeEffect(), 1000)
-                        } else if (this.isDeleting && this.charIndex === 0) {
-                            this.isDeleting = false
-                            this.textIndex = (this.textIndex + 1) % this.texts.length
-                            this.timer = setTimeout(() => this.typeEffect(), 500)
+                            if (this.charIndex === currentText.length) {
+                                this.handleCompleteTyping()
+                            }
                         } else {
-                            const delay = this.isDeleting ? this.deleteSpeed : this.speed
-                            this.timer = setTimeout(() => this.typeEffect(), delay)
+                            // 删除模式
+                            this.charIndex = Math.max(this.charIndex - 1, 0)
+                            subtitleEl.textContent = currentText.slice(0, this.charIndex)
+
+                            if (this.charIndex === 0) {
+                                this.handleCompleteDeleting()
+                            }
                         }
+                    },
+
+                    handleCompleteTyping() {
+                        this.isDeleting = true
+                        this.lastTime = performance.now() + this.pauseDuration
+                    },
+
+                    handleCompleteDeleting() {
+                        this.isDeleting = false
+                        this.textIndex = (this.textIndex + 1) % this.texts.length
+                        this.lastTime = performance.now() + this.pauseDuration / 2
                     }
                 }
 
-                // 页面可见性变化处理
+                // 页面可见性控制
                 document.addEventListener('visibilitychange', () => {
-                    if (document.visibilityState === 'visible') {
-                        typingEffect.init()
+                    if (document.visibilityState === 'hidden') {
+                        cancelAnimationFrame(typingEffect.frameId)
                     } else {
-                        clearTimeout(typingEffect.timer)
+                        typingEffect.init()
                     }
                 })
 
                 // 初始化动画
-                window.addEventListener('load', typingEffect.init.bind(typingEffect))
+                window.addEventListener('load', () => typingEffect.init())
                 window.addEventListener('pageshow', (event) => {
                     if (event.persisted) typingEffect.init()
                 })
+
+                const scrollToMain = () => {
+                    console.log("scroll");
+                    document.querySelector(".main-content-container").scrollIntoView({ behavior: "smooth" })
+                }
             </script>
         </div>
 
@@ -330,16 +340,7 @@
                                     <li class="navbar-item"><a href="/"><i class="fa-regular fa-archive fa-fw"></i>
                                             ARCHIVES</a></li>
 
-                                    <li class="navbar-item"><a class="has-dropdown" href="#" onclick="&quot;return"
-                                            false;&#34;=""><i class="fa-regular fa-link fa-fw"></i> LINKS <i
-                                                class="fa-solid fa-chevron-down fa-fw"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a rel="noopener" href="/">ABOUT</a></li>
-                                            <li><a rel="noopener" href="/">BLOG</a>
-                                            </li>
-                                            <li><a href="/">SHOWCASE</a></li>
-                                        </ul>
-                                    </li>
+
 
                                 </ul>
                             </div>
@@ -383,70 +384,6 @@
                                     href="/"><span>ARCHIVES </span><i class="fa-regular fa-archive fa-sm fa-fw"></i></a>
                             </li>
 
-                            <!-- 修改后的导航项 -->
-                            <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
-                                <!-- 父菜单触发按钮 -->
-                                <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full"
-                                    data-submenu-trigger="links">
-                                    <span>LINKS</span>
-                                    <i class="fa-solid fa-chevron-right fa-sm fa-fw"></i>
-                                </div>
-
-                                <!-- 子菜单容器 -->
-                                <div class="submenu-container" data-submenu-target="links">
-                                    <div class="px-2 py-2">
-                                        <div
-                                            class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
-                                            <a class="text-third-text-color text-xl" target="_blank" href="/">ABOUT</a>
-                                        </div>
-                                        <div
-                                            class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
-                                            <a class="text-third-text-color text-xl" target="_blank" href="/">BLOG</a>
-                                        </div>
-                                        <div
-                                            class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
-                                            <a class="text-third-text-color text-xl" target="_blank"
-                                                href="/">SHOWCASE</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <script>
-                                // 菜单交互逻辑
-                                document.querySelectorAll('[data-submenu-trigger]').forEach(trigger => {
-                                    // 初始化隐藏所有子菜单
-                                    const targetId = trigger.dataset.submenuTrigger;
-                                    const targetMenu = document.querySelector(`[data-submenu-target="${targetId}"]`);
-                                    targetMenu.style.height = '0';
-
-                                    trigger.addEventListener('click', function () {
-                                        const targetId = this.dataset.submenuTrigger;
-                                        const targetMenu = document.querySelector(`[data-submenu-target="${targetId}"]`);
-                                        const icon = this.querySelector('.fa-chevron-right');
-
-                                        // 关闭其他菜单
-                                        document.querySelectorAll('[data-submenu-trigger]').forEach(otherTrigger => {
-                                            if (otherTrigger !== this) {
-                                                const otherTargetId = otherTrigger.dataset.submenuTrigger;
-                                                const otherTarget = document.querySelector(`[data-submenu-target="${otherTargetId}"]`);
-                                                otherTarget.style.height = '0';
-                                                otherTrigger.querySelector('.fa-chevron-right').classList.remove('rotated');
-                                            }
-                                        });
-
-                                        // 切换当前菜单
-                                        const isOpen = targetMenu.style.height !== '0px';
-                                        if (isOpen) {
-                                            targetMenu.style.height = '0';
-                                            icon.classList.remove('rotated');
-                                        } else {
-                                            targetMenu.style.height = targetMenu.scrollHeight + 'px';
-                                            icon.classList.add('rotated');
-                                        }
-                                    });
-                                });
-                            </script>
 
                         </ul>
 
@@ -465,6 +402,7 @@
                                 <div class="label text-third-text-color text-sm">Posts</div>
                             </a>
                         </div>
+
 
                     </div>
 
@@ -498,6 +436,7 @@
                             <a class="links" href="/">
                                 <i class="fa-regular fa-comment-dots icon-space"></i>
                                 <span class="link-name">Shuoshuo</span> </a>
+
                         </div>
 
                         <div class="sidebar-content" margintop>
