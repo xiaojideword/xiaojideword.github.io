@@ -173,16 +173,18 @@
             }
 
             /* 自定义过渡动画 */
-            .drawer-navbar-item-sub [data-target] {
-                transition: height 0.3s ease-in-out, opacity 0.2s ease;
+            .drawer-navbar-item-sub .submenu-container {
+                height: 0;
+                overflow: hidden;
+                transition: height 0.3s ease-in-out;
             }
 
+            /* 箭头旋转动画 */
             .fa-chevron-right {
-                transform: rotate(0deg);
                 transition: transform 0.3s ease;
             }
 
-            .fa-chevron-right.rotate-90 {
+            .fa-chevron-right.rotated {
                 transform: rotate(90deg);
             }
         </style>
@@ -276,8 +278,8 @@
                 <header class="navbar-container px-6 md:px-12">
                     <div class="navbar-content transition-navbar has-home-banner">
                         <div class="left">
-                            <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/"><img
-                                    src="/images/redefine-favicon.svg" class="w-full h-full rounded-sm"> </a>
+                            <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/"><img src="/images/favicon.jpg"
+                                    class="w-full h-full rounded-sm"> </a>
                             <a class="logo-title" href="/">
                                 <h1>
                                     Welcome
@@ -364,34 +366,31 @@
                             <!-- 修改后的导航项 -->
                             <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
                                 <!-- 父菜单触发按钮 -->
-                                <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
-                                    navbar-data-toggle="submenu-Links" aria-expanded="false"
-                                    aria-controls="submenu-Links">
+                                <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full"
+                                    data-submenu-trigger="links">
                                     <span>LINKS</span>
-                                    <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all duration-300"></i>
+                                    <i class="fa-solid fa-chevron-right fa-sm fa-fw"></i>
                                 </div>
 
                                 <!-- 子菜单容器 -->
-                                <div id="submenu-Links"
-                                    class="flex-col items-start px-2 py-2 h-0 overflow-hidden transition-all duration-300"
-                                    aria-hidden="true">
-                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl"
-                                        data-navbar-initialized="1">
-                                        <a class="text-third-text-color text-xl" target="_blank" rel="noopener"
-                                            href="/">ABOUT</a>
-                                    </div>
-                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl"
-                                        data-navbar-initialized="1">
-                                        <a class="text-third-text-color text-xl" target="_blank" rel="noopener"
-                                            href="/">BLOG</a>
-                                    </div>
-                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl"
-                                        data-navbar-initialized="1">
-                                        <a class="text-third-text-color text-xl" target="_blank" href="/">SHOWCASE</a>
+                                <div class="submenu-container" data-submenu-target="links">
+                                    <div class="px-2 py-2">
+                                        <div
+                                            class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                            <a class="text-third-text-color text-xl" target="_blank" href="/">ABOUT</a>
+                                        </div>
+                                        <div
+                                            class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                            <a class="text-third-text-color text-xl" target="_blank" href="/">BLOG</a>
+                                        </div>
+                                        <div
+                                            class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                            <a class="text-third-text-color text-xl" target="_blank"
+                                                href="/">SHOWCASE</a>
+                                        </div>
                                     </div>
                                 </div>
                             </li>
-
 
                         </ul>
 
@@ -413,37 +412,36 @@
 
                         <script>
                             // 菜单交互逻辑
-                            document.querySelectorAll('[navbar-data-toggle^="submenu-"]').forEach(trigger => {
-                                const targetId = trigger.getAttribute('navbar-data-toggle').replace('submenu-', '');
-                                const targetMenu = document.getElementById(targetId);
-
-                                // 初始化菜单状态
+                            document.querySelectorAll('[data-submenu-trigger]').forEach(trigger => {
+                                // 初始化隐藏所有子菜单
+                                const targetId = trigger.dataset.submenuTrigger;
+                                const targetMenu = document.querySelector(`[data-submenu-target="${targetId}"]`);
                                 targetMenu.style.height = '0';
 
                                 trigger.addEventListener('click', function () {
-                                    const targetId = this.getAttribute('navbar-data-toggle').replace('submenu-', '');
-                                    const targetMenu = document.getElementById(targetId);
+                                    const targetId = this.dataset.submenuTrigger;
+                                    const targetMenu = document.querySelector(`[data-submenu-target="${targetId}"]`);
                                     const icon = this.querySelector('.fa-chevron-right');
 
                                     // 关闭其他菜单
-                                    document.querySelectorAll('[navbar-data-toggle^="submenu-"]').forEach(otherTrigger => {
+                                    document.querySelectorAll('[data-submenu-trigger]').forEach(otherTrigger => {
                                         if (otherTrigger !== this) {
-                                            const otherTargetId = otherTrigger.getAttribute('navbar-data-toggle').replace('submenu-', '');
-                                            const otherTarget = document.getElementById(otherTargetId);
+                                            const otherTargetId = otherTrigger.dataset.submenuTrigger;
+                                            const otherTarget = document.querySelector(`[data-submenu-target="${otherTargetId}"]`);
                                             otherTarget.style.height = '0';
-                                            otherTrigger.querySelector('.fa-chevron-right').classList.remove('rotate-90');
-                                            otherTrigger.setAttribute('aria-expanded', 'false');
+                                            otherTrigger.querySelector('.fa-chevron-right').classList.remove('rotated');
                                         }
                                     });
 
                                     // 切换当前菜单
-                                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
-                                    const menuHeight = targetMenu.scrollHeight;
-
-                                    targetMenu.style.height = isExpanded ? '0' : `${menuHeight}px`;
-                                    icon.classList.toggle('rotate-90', !isExpanded);
-                                    this.setAttribute('aria-expanded', (!isExpanded).toString());
-                                    targetMenu.setAttribute('aria-hidden', isExpanded.toString());
+                                    const isOpen = targetMenu.style.height !== '0px';
+                                    if (isOpen) {
+                                        targetMenu.style.height = '0';
+                                        icon.classList.remove('rotated');
+                                    } else {
+                                        targetMenu.style.height = targetMenu.scrollHeight + 'px';
+                                        icon.classList.add('rotated');
+                                    }
                                 });
                             });
                         </script>
