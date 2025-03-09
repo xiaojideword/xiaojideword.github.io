@@ -36,10 +36,10 @@
 
 
     <!--- Icon Part-->
-    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <link rel="icon" type="image/jpg" href="/images/favicon.jpg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.jpg">
     <meta name="theme-color" content="#A31F34">
-    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <link rel="shortcut icon" href="/images/favicon.jpg">
     <!--- Page Info-->
 
     <title>
@@ -209,91 +209,106 @@
 
             </div>
             <script>
-                const typingEffect = {
-                    frameId: null,
-                    lastTime: 0,
-                    texts: ["This is my blog."],
-                    textIndex: 0,
-                    charIndex: 0,
-                    isDeleting: false,
-                    speed: 150,       // 字符输入速度 (ms/字符)
-                    deleteSpeed: 80,  // 字符删除速度 (ms/字符)
-                    pauseDuration: 1000, // 输入完成后的暂停时间
+                const typingEffect = (() => {
+                    let frameId = null;
+                    let lastTime = 0;
+                    let state = {
+                        texts: ["This is my blog."],
+                        textIndex: 0,
+                        charIndex: 0,
+                        isDeleting: false,
+                        speed: 150,
+                        deleteSpeed: 80,
+                        pauseDuration: 1000
+                    };
 
-                    init() {
-                        cancelAnimationFrame(this.frameId)
-                        this.resetState()
-                        this.animate(performance.now())
-                    },
+                    // 核心动画逻辑
+                    const animate = (timestamp) => {
+                        if (!lastTime) lastTime = timestamp;
 
-                    resetState() {
-                        this.textIndex = 0
-                        this.charIndex = 0
-                        this.isDeleting = false
-                        document.getElementById("subtitle").textContent = ""
-                    },
-
-                    animate(timestamp) {
-                        const deltaTime = timestamp - this.lastTime
-                        const currentText = this.texts[this.textIndex]
-                        const targetDelay = this.isDeleting ? this.deleteSpeed : this.speed
+                        const deltaTime = timestamp - lastTime;
+                        const currentText = state.texts[state.textIndex];
+                        const targetDelay = state.isDeleting ? state.deleteSpeed : state.speed;
 
                         if (deltaTime >= targetDelay) {
-                            this.updateText(currentText)
-                            this.lastTime = timestamp
+                            updateText(currentText);
+                            lastTime = timestamp;
                         }
 
-                        this.frameId = requestAnimationFrame((ts) => this.animate(ts))
-                    },
+                        frameId = requestAnimationFrame(animate);
+                    };
 
-                    updateText(currentText) {
-                        const subtitleEl = document.getElementById("subtitle")
+                    // 文本更新逻辑
+                    const updateText = (currentText) => {
+                        const subtitleEl = document.getElementById("subtitle");
 
-                        if (!this.isDeleting) {
-                            // 输入模式
-                            this.charIndex = Math.min(this.charIndex + 1, currentText.length)
-                            subtitleEl.textContent = currentText.slice(0, this.charIndex)
+                        if (!state.isDeleting) {
+                            state.charIndex = Math.min(state.charIndex + 1, currentText.length);
+                            subtitleEl.textContent = currentText.slice(0, state.charIndex);
 
-                            if (this.charIndex === currentText.length) {
-                                this.handleCompleteTyping()
+                            if (state.charIndex === currentText.length) {
+                                state.isDeleting = true;
+                                lastTime = performance.now() + state.pauseDuration;
                             }
                         } else {
-                            // 删除模式
-                            this.charIndex = Math.max(this.charIndex - 1, 0)
-                            subtitleEl.textContent = currentText.slice(0, this.charIndex)
+                            state.charIndex = Math.max(state.charIndex - 1, 0);
+                            subtitleEl.textContent = currentText.slice(0, state.charIndex);
 
-                            if (this.charIndex === 0) {
-                                this.handleCompleteDeleting()
+                            if (state.charIndex === 0) {
+                                state.isDeleting = false;
+                                state.textIndex = (state.textIndex + 1) % state.texts.length;
+                                lastTime = performance.now() + state.pauseDuration / 2;
                             }
                         }
-                    },
+                    };
 
-                    handleCompleteTyping() {
-                        this.isDeleting = true
-                        this.lastTime = performance.now() + this.pauseDuration
-                    },
+                    // 公共方法
+                    return {
+                        init() {
+                            cancelAnimationFrame(frameId);
+                            state = {
+                                ...state,
+                                textIndex: 0,
+                                charIndex: 0,
+                                isDeleting: false
+                            };
+                            document.getElementById("subtitle").textContent = "";
+                            lastTime = 0;
+                            frameId = requestAnimationFrame(animate);
+                        },
+                        destroy() {
+                            cancelAnimationFrame(frameId);
+                        }
+                    };
+                })();
 
-                    handleCompleteDeleting() {
-                        this.isDeleting = false
-                        this.textIndex = (this.textIndex + 1) % this.texts.length
-                        this.lastTime = performance.now() + this.pauseDuration / 2
-                    }
-                }
+                // 浏览器兼容性事件监听
+                const bindEvents = () => {
+                    // 处理页面缓存恢复
+                    window.addEventListener('pageshow', (event) => {
+                        if (event.persisted) typingEffect.init();
+                    });
 
-                // 页面可见性控制
-                document.addEventListener('visibilitychange', () => {
-                    if (document.visibilityState === 'hidden') {
-                        cancelAnimationFrame(typingEffect.frameId)
-                    } else {
-                        typingEffect.init()
-                    }
-                })
+                    // 处理标签页切换
+                    document.addEventListener('visibilitychange', () => {
+                        if (document.visibilityState === 'visible') {
+                            typingEffect.init();
+                        } else {
+                            typingEffect.destroy();
+                        }
+                    });
 
-                // 初始化动画
-                window.addEventListener('load', () => typingEffect.init())
-                window.addEventListener('pageshow', (event) => {
-                    if (event.persisted) typingEffect.init()
-                })
+                    // 处理窗口聚焦
+                    window.addEventListener('focus', () => {
+                        typingEffect.init();
+                    });
+                };
+
+                // 初始化
+                window.addEventListener('load', () => {
+                    typingEffect.init();
+                    bindEvents();
+                });
 
                 const scrollToMain = () => {
                     console.log("scroll");
