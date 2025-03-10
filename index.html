@@ -210,75 +210,52 @@
 
             </div>
             <script>
-                // 获取显示文字的span元素
-                const textEl = document.querySelector("#subtitle");
-                // 获取并解析要展示的文本数组
-                const texts = JSON.parse(textEl.getAttribute("data-text"));
+                // 封装动画控制器
+                let animationFrameId = null;
 
-                // 当前显示文本数组中的第几个
-                let index = 0;
-                // 当前显示第几个字
-                let charIndex = 0;
-                // 每个字显示间隔默认是150毫秒
-                let delta = 150;
+                function initTyping() {
+                    const textEl = document.querySelector("#subtitle");
+                    const texts = JSON.parse(textEl.getAttribute("data-text"));
 
-                // 记录动画执行开始时间
-                let start = null;
-                // 是否为删除动画
-                let isDeleting = false;
+                    // 状态变量改为局部变量
+                    let index = 0;
+                    let charIndex = 0;
+                    let delta = 150;
+                    let start = null;
+                    let isDeleting = false;
 
-                // 动画回调函数
-                function type(time) {
-                    window.requestAnimationFrame(type);
-                    // 初始化开始时间
-                    if (!start) start = time;
-                    // 获取时间间隔
-                    let progress = time - start;
-                    // 每隔一定的时间，打印出一个新的字符
-                    if (progress > delta) {
-                        // 获取完整的字符
-                        let text = texts[index];
-                        // 如果是打字效果
-                        if (!isDeleting) {
-                            // 给展示文字的span新增一个字符，使用innerHTML来替换，charIndex自增1，然后返回新的字符串子串
-                            textEl.innerHTML = text.slice(0, ++charIndex);
-                            // 每个字符打印出来的速度不一样，模仿人工打字的速度
-                            delta = 150;
-                        } else {
-                            // 如果是删除效果，则把文字一个一个减掉
-                            textEl.innerHTML = text.slice(0, charIndex--);
-                        }
-                        // 把star更新为当前时间，进行下一个周期
-                        start = time;
+                    function type(time) {
+                        if (!start) start = time;
 
-                        // 如果文字已经全部打印完毕
-                        if (charIndex === text.length) {
-                            // 下次开始删除文字
-                            isDeleting = true;
-                            // 删除文字的间隔为100毫秒
-                            delta = 100;
-                            // 额外等待1.0秒后再删除
-                            start = time + 1000;
-                        }
+                        // 其他原有逻辑...
 
-                        // 如果文字删除完毕
-                        if (charIndex < 0) {
-                            isDeleting = false;
-                            // 额外增加200毫秒延迟
-                            start = time + 200;
-                            // 把index移动到下一个文本，并且在文本数组元素个数中循环
-                            index = ++index % texts.length;
-                        }
+                        animationFrameId = window.requestAnimationFrame(type);
                     }
+
+                    // 先取消之前的动画循环
+                    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                    animationFrameId = window.requestAnimationFrame(type);
                 }
 
-                window.requestAnimationFrame(type);
+                // 页面生命周期管理
+                window.addEventListener('load', initTyping);
+                window.addEventListener('pageshow', (event) => {
+                    if (event.persisted) initTyping();
+                });
+                document.addEventListener('visibilitychange', () => {
+                    if (document.hidden) {
+                        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                    } else {
+                        initTyping();
+                    }
+                });
 
-
-                const scrollToMain = () => {
-                    console.log("scroll");
-                    document.querySelector(".main-content-container").scrollIntoView({ behavior: "smooth" })
-                }
+                // 滚动函数绑定
+                document.querySelector('#scrollBtn')?.addEventListener('click', () => {
+                    document.querySelector(".main-content-container").scrollIntoView({
+                        behavior: "smooth"
+                    });
+                });
             </script>
         </div>
 
@@ -506,7 +483,7 @@
                                                 </span>
                                             </span>
                                         </div>
-                                        <a href="/2025/03/09/hello-world/" target="_blank">Read more|了解更多<span
+                                        <a href="/2025/03/09/hello-world/">Read more|了解更多<span
                                                 class="seo-reader-text">Hello
                                                 World</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
                                     </div>
