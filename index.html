@@ -187,7 +187,7 @@
                     Welcome,my friend
 
 
-                    <p><i id="subtitle" data-text='["I am 小芰", "This is my blog."]'></i><span class="typed-cursor"
+                    <p><i id="subtitle" data-text='["I am 小芰.", "This is my blog."]'></i><span class="typed-cursor"
                             aria-hidden="true">|</span></p>
 
                 </div>
@@ -219,8 +219,8 @@
                 let index = 0;
                 // 当前显示第几个字
                 let charIndex = 0;
-                // 每个字显示间隔默认是500毫秒
-                let delta = 500;
+                // 每个字显示间隔默认是150毫秒
+                let delta = 150;
 
                 // 记录动画执行开始时间
                 let start = null;
@@ -243,7 +243,7 @@
                             // 给展示文字的span新增一个字符，使用innerHTML来替换，charIndex自增1，然后返回新的字符串子串
                             textEl.innerHTML = text.slice(0, ++charIndex);
                             // 每个字符打印出来的速度不一样，模仿人工打字的速度
-                            delta = 500 - Math.random() * 400;
+                            delta = 150;
                         } else {
                             // 如果是删除效果，则把文字一个一个减掉
                             textEl.innerHTML = text.slice(0, charIndex--);
@@ -255,10 +255,10 @@
                         if (charIndex === text.length) {
                             // 下次开始删除文字
                             isDeleting = true;
-                            // 删除文字的间隔为200毫秒
-                            delta = 200;
-                            // 额外等待1.2秒后再删除
-                            start = time + 1200;
+                            // 删除文字的间隔为100毫秒
+                            delta = 100;
+                            // 额外等待1.0秒后再删除
+                            start = time + 1000;
                         }
 
                         // 如果文字删除完毕
