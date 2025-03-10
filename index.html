@@ -210,52 +210,106 @@
 
             </div>
             <script>
-                // 封装动画控制器
+                // 打字动画控制器
                 let animationFrameId = null;
 
                 function initTyping() {
                     const textEl = document.querySelector("#subtitle");
-                    const texts = JSON.parse(textEl.getAttribute("data-text"));
+                    if (!textEl) return;
 
-                    // 状态变量改为局部变量
-                    let index = 0;
-                    let charIndex = 0;
-                    let delta = 150;
-                    let start = null;
-                    let isDeleting = false;
+                    // 重置元素状态
+                    textEl.innerHTML = '';
+
+                    const texts = JSON.parse(textEl.getAttribute("data-text"));
+                    let index = 0;        // 当前文本索引
+                    let charIndex = 0;    // 字符索引
+                    let delta = 150;      // 打字间隔
+                    let start = null;     // 动画开始时间
+                    let isDeleting = false; // 删除状态
 
                     function type(time) {
                         if (!start) start = time;
+                        const progress = time - start;
 
-                        // 其他原有逻辑...
+                        if (progress > delta) {
+                            const text = texts[index];
+                            if (!isDeleting) {
+                                textEl.innerHTML = text.slice(0, ++charIndex);
+                                delta = Math.random() * 50 + 100; // 随机打字速度
+                            } else {
+                                textEl.innerHTML = text.slice(0, charIndex--);
+                                delta = 50;
+                            }
+                            start = time;
 
-                        animationFrameId = window.requestAnimationFrame(type);
+                            // 状态转换判断
+                            if (charIndex === text.length) {
+                                isDeleting = true;
+                                delta = 100;
+                                start = time + 1000;
+                            }
+
+                            if (charIndex < 0) {
+                                isDeleting = false;
+                                index = (index + 1) % texts.length;
+                                delta = 200;
+                                start = time + 200;
+                            }
+                        }
+
+                        animationFrameId = requestAnimationFrame(type);
                     }
 
-                    // 先取消之前的动画循环
+                    // 清理之前的动画
                     if (animationFrameId) cancelAnimationFrame(animationFrameId);
-                    animationFrameId = window.requestAnimationFrame(type);
+                    animationFrameId = requestAnimationFrame(type);
                 }
 
                 // 页面生命周期管理
                 window.addEventListener('load', initTyping);
+
+                // 处理浏览器前进/后退缓存
                 window.addEventListener('pageshow', (event) => {
-                    if (event.persisted) initTyping();
+                    if (event.persisted) {
+                        initTyping();
+                        console.log('从bfcache恢复，重新初始化动画');
+                    }
                 });
+
+                // 处理标签页切换
                 document.addEventListener('visibilitychange', () => {
                     if (document.hidden) {
-                        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                        if (animationFrameId) {
+                            cancelAnimationFrame(animationFrameId);
+                            animationFrameId = null;
+                            console.log('页面隐藏，停止动画');
+                        }
                     } else {
+                        if (!animationFrameId) {
+                            initTyping();
+                            console.log('页面可见，重新启动动画');
+                        }
+                    }
+                });
+
+
+                const scrollToMain = () => {
+                    console.log("scroll");
+                    document.querySelector(".main-content-container").scrollIntoView({ behavior: "smooth" })
+                }
+                // 窗口大小变化时重置布局
+                window.addEventListener('resize', () => {
+                    if (animationFrameId) {
+                        cancelAnimationFrame(animationFrameId);
                         initTyping();
                     }
                 });
 
-                // 滚动函数绑定
-                document.querySelector('#scrollBtn')?.addEventListener('click', () => {
-                    document.querySelector(".main-content-container").scrollIntoView({
-                        behavior: "smooth"
-                    });
-                });
+
+                // const scrollToMain = () => {
+                //     console.log("scroll");
+                //     document.querySelector(".main-content-container").scrollIntoView({ behavior: "smooth" })
+                // }
             </script>
         </div>
 
