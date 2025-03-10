@@ -187,7 +187,8 @@
                     Welcome,my friend
 
 
-                    <p><i id="subtitle"></i><span class="typed-cursor" aria-hidden="true">|</span></p>
+                    <p><i id="subtitle" data-text='["I am 小芰", "This is my blog."]'></i><span class="typed-cursor"
+                            aria-hidden="true">|</span></p>
 
                 </div>
 
@@ -209,70 +210,70 @@
 
             </div>
             <script>
-                // 动画控制对象
-                const typingEffect = {
-                    timer: null,
-                    texts: ["This is my blog."],
-                    textIndex: 0,
-                    charIndex: 0,
-                    isDeleting: false,
-                    speed: 150,
-                    deleteSpeed: 100,
+                // 获取显示文字的span元素
+                const textEl = document.querySelector("#subtitle");
+                // 获取并解析要展示的文本数组
+                const texts = JSON.parse(textEl.getAttribute("data-text"));
 
-                    init() {
-                        // 清除已有定时器
-                        if (this.timer) clearTimeout(this.timer)
+                // 当前显示文本数组中的第几个
+                let index = 0;
+                // 当前显示第几个字
+                let charIndex = 0;
+                // 每个字显示间隔默认是500毫秒
+                let delta = 500;
 
-                        // 重置初始状态
-                        this.textIndex = 0
-                        this.charIndex = 0
-                        this.isDeleting = false
-                        document.getElementById("subtitle").textContent = ""
+                // 记录动画执行开始时间
+                let start = null;
+                // 是否为删除动画
+                let isDeleting = false;
 
-                        // 开始动画
-                        this.typeEffect()
-                    },
-
-                    typeEffect() {
-                        const currentText = this.texts[this.textIndex]
-                        const subtitleEl = document.getElementById("subtitle")
-
-                        if (!this.isDeleting) {
-                            subtitleEl.textContent = currentText.slice(0, this.charIndex + 1)
-                            this.charIndex++
+                // 动画回调函数
+                function type(time) {
+                    window.requestAnimationFrame(type);
+                    // 初始化开始时间
+                    if (!start) start = time;
+                    // 获取时间间隔
+                    let progress = time - start;
+                    // 每隔一定的时间，打印出一个新的字符
+                    if (progress > delta) {
+                        // 获取完整的字符
+                        let text = texts[index];
+                        // 如果是打字效果
+                        if (!isDeleting) {
+                            // 给展示文字的span新增一个字符，使用innerHTML来替换，charIndex自增1，然后返回新的字符串子串
+                            textEl.innerHTML = text.slice(0, ++charIndex);
+                            // 每个字符打印出来的速度不一样，模仿人工打字的速度
+                            delta = 500 - Math.random() * 400;
                         } else {
-                            subtitleEl.textContent = currentText.slice(0, this.charIndex - 1)
-                            this.charIndex--
+                            // 如果是删除效果，则把文字一个一个减掉
+                            textEl.innerHTML = text.slice(0, charIndex--);
+                        }
+                        // 把star更新为当前时间，进行下一个周期
+                        start = time;
+
+                        // 如果文字已经全部打印完毕
+                        if (charIndex === text.length) {
+                            // 下次开始删除文字
+                            isDeleting = true;
+                            // 删除文字的间隔为200毫秒
+                            delta = 200;
+                            // 额外等待1.2秒后再删除
+                            start = time + 1200;
                         }
 
-                        if (!this.isDeleting && this.charIndex === currentText.length) {
-                            this.isDeleting = true
-                            this.timer = setTimeout(() => this.typeEffect(), 1000)
-                        } else if (this.isDeleting && this.charIndex === 0) {
-                            this.isDeleting = false
-                            this.textIndex = (this.textIndex + 1) % this.texts.length
-                            this.timer = setTimeout(() => this.typeEffect(), 500)
-                        } else {
-                            const delay = this.isDeleting ? this.deleteSpeed : this.speed
-                            this.timer = setTimeout(() => this.typeEffect(), delay)
+                        // 如果文字删除完毕
+                        if (charIndex < 0) {
+                            isDeleting = false;
+                            // 额外增加200毫秒延迟
+                            start = time + 200;
+                            // 把index移动到下一个文本，并且在文本数组元素个数中循环
+                            index = ++index % texts.length;
                         }
                     }
                 }
 
-                // 页面可见性变化处理
-                document.addEventListener('visibilitychange', () => {
-                    if (document.visibilityState === 'visible') {
-                        typingEffect.init()
-                    } else {
-                        clearTimeout(typingEffect.timer)
-                    }
-                })
+                window.requestAnimationFrame(type);
 
-                // 初始化动画
-                window.addEventListener('load', typingEffect.init.bind(typingEffect))
-                window.addEventListener('pageshow', (event) => {
-                    if (event.persisted) typingEffect.init()
-                })
 
                 const scrollToMain = () => {
                     console.log("scroll");
@@ -367,16 +368,16 @@
                         </ul>
 
                         <div class="statistics flex justify-around my-2.5">
-                            <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/">
+                            <!-- <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/">
                                 <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
                                 <div class="label text-third-text-color text-sm">Tags</div>
                             </a>
                             <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/">
                                 <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
                                 <div class="label text-third-text-color text-sm">Categories</div>
-                            </a>
+                            </a> -->
                             <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/">
-                                <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">1</div>
+                                <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
                                 <div class="label text-third-text-color text-sm">Posts</div>
                             </a>
                         </div>
@@ -401,7 +402,7 @@
                         <div class="sidebar-links">
                             <div class="site-info">
                                 <div class="site-name">welcome</div>
-                                <div class="announcement">Here are some articles I have written.</div>
+                                <div class="announcement">In the future, I will improve my blog.</div>
                             </div>
                             <a class="links" href="/"><i class="fa-regular fa-archive icon-space"></i>
                                 <span class="link-name">Archives</span> </a>
@@ -422,22 +423,22 @@
                                 <img src="/images/touxiang.jpg">
                             </div>
                             <div class="author flex flex-col justify-center my-2.5 mx-0">
-                                <div class="name">xiaojideblog</div>
+                                <div class="name">小芰的博客</div>
 
                                 <div class="label">Lv1</div>
 
                             </div>
                             <div class="statistics flex justify-around my-2.5">
-                                <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/">
+                                <!-- <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/">
                                     <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
                                     <div class="label text-third-text-color text-sm">Tags</div>
                                 </a>
                                 <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/">
                                     <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
                                     <div class="label text-third-text-color text-sm">Categories</div>
-                                </a>
+                                </a> -->
                                 <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/">
-                                    <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">1</div>
+                                    <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
                                     <div class="label text-third-text-color text-sm">Posts</div>
                                 </a>
                             </div>
@@ -457,18 +458,17 @@
                             <li class="home-article-item">
                                 <div id="home-article-thumbnail"
                                     class="home-article-thumbnail relative h-[150px] overflow-hidden rounded-t-large"><a
-                                        href="/2025/03/09/hello-world/"><img
-                                            src="https://assets.ohevan.com/img/dcb9eb79efc29322f65f96d9d4ae7782.jpeg"
+                                        href="/2025/03/09/hello-world/"><img src="/img/album.png"
                                             class="w-full h-full object-cover dark:brightness-75 transition-all"></a>
                                 </div>
                                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                                     <h3 class="home-article-title">
                                         <a href="/2025/03/09/hello-world/">
-                                            Hello World
+                                            3D旋转相册
                                         </a>
                                     </h3>
                                     <div class="home-article-content markdown-body">
-                                        Welcome, friend. This article recommends the movie "The Auqaman".
+                                        嗨，在这个blog里面我放了一个3D旋转相册哦。
                                     </div>
                                     <div class="home-article-meta-info-container">
                                         <div class="home-article-meta-info">
@@ -479,7 +479,7 @@
                                                 </span>
                                             </span>
                                         </div>
-                                        <a href="/2025/03/09/hello-world/">Read more<span class="seo-reader-text">Hello
+                                        <a href="/album.html">Read more<span class="seo-reader-text">Hello
                                                 World</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
                                     </div>
                                 </div>
@@ -538,7 +538,7 @@
 
                             2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat"
                                 style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a
-                                href="/">xiaojideblog</a>
+                                href="/">小芰的博客</a>
 
 
                             <p class="post-count space-x-0.5">
