@@ -205,10 +205,10 @@
                             const text = texts[index];
                             if (!isDeleting) {
                                 textEl.innerHTML = text.slice(0, ++charIndex);
-                                delta = Math.random() * 50 + 100; // 随机打字速度
+                                delta = 150; // 随机打字速度
                             } else {
                                 textEl.innerHTML = text.slice(0, charIndex--);
-                                delta = 50;
+                                delta = 150;
                             }
                             start = time;
 
@@ -222,7 +222,7 @@
                             if (charIndex < 0) {
                                 isDeleting = false;
                                 index = (index + 1) % texts.length;
-                                delta = 200;
+                                delta = 100;
                                 start = time + 200;
                             }
                         }
@@ -462,28 +462,22 @@
 
                             <li class="home-article-item">
                                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                                    <h3 class="home-article-title"><a href="/2025/03/09/hello-world/">Hello World</a>
+                                    <h3 class="home-article-title"><a href="/2025/03/09/hello-world/">联系方式|Contact
+                                            information</a>
                                     </h3>
-                                    <div class="home-article-content markdown-body">Welcome to Hexo! This is your very
-                                        first post. Check documentation for more info. If you get any problems when
-                                        using Hexo, you can find the answer in troubleshooting or you can ask me on
-                                        GitHub. Qu...</div>
+                                    <div class="home-article-content markdown-body">你可以通过这篇博客里的方式找到我。</div>
                                     <div class="home-article-meta-info-container">
                                         <div class="home-article-meta-info"><span><i
                                                     class="fa-solid fa-calendars"></i>&nbsp; <span
                                                     class="home-article-date"
-                                                    data-date="Tue Jan 09 2007 09:41:05 GMT+0000">2007-01-09
+                                                    data-date="Tue Jan 09 2007 09:41:05 GMT+0000">2025-03-11
                                                 </span></span><span class="home-article-category"><i
                                                     class="fa-solid fa-folders"></i>&nbsp;<ul>
-                                                    <li><a href="/categories/Start/">Start</a>&nbsp;</li>
+                                                    <li><a href="#">Start</a>&nbsp;</li>
                                                     <li>&gt;</li>
-                                                    <li><a href="/categories/Start/Run/">Run</a>&nbsp;</li>
-                                                </ul></span><span class="home-article-tag"><i
-                                                    class="fa-solid fa-tags"></i>&nbsp;<ul>
-                                                    <li><a href="/tags/Demo/">Demo</a>&nbsp;</li>
-                                                    <li>| <a href="/tags/First-Post/">First Post</a>&nbsp;</li>
-                                                    <li>| <a href="/tags/Hello-World/">Hello World</a>&nbsp;</li>
-                                                </ul></span></div><a href="/2025/03/09/hello-world/">Read more<span
+                                                    <li><a href="#">Run</a>&nbsp;</li>
+                                                </ul></span>
+                                        </div><a href="/2025/03/09/hello-world/">Read more<span
                                                 class="seo-reader-text">Hello World</span>&nbsp;<i
                                                 class="fa-solid fa-angle-right"></i></a>
                                     </div>
