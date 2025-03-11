@@ -160,7 +160,8 @@
             style="height: 774px;">
             <div class="content mt-8 flex flex-col justify-center items-center transition-fade-down">
                 <div class="description flex flex-col justify-center items-center w-screen font-medium text-center">
-                    Theme Redefine<p><i id="subtitle">R</i><span class="typed-cursor" aria-hidden="true">|</span></p>
+                    Welcome,my friend<p><i id="subtitle" data-text='["I am 小芰.", "This is my blog."]'></i><span
+                            class="typed-cursor" aria-hidden="true">|</span></p>
                 </div>
                 <div
                     class="absolute bottom-0.5 flex flex-row justify-between max-w-[1340px] items-center w-full px-8 sm:px-12">
@@ -170,27 +171,118 @@
                     </div>
                     <div
                         class="social-contacts px-6 py-3 bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-lg border border-white/20 dark:border-gray-500/30 shadow-redefine-flat rounded-full flex flex-row gap-3 items-center">
-                        <span class="social-contact-item github"><a target="_blank"
-                                href="https://github.com/EvanNotFound/hexo-theme-redefine"><i
+                        <span class="social-contact-item github"><a target="_blank" href="#"><i
                                     class="fa-brands fa-fw fa-lg fa-github"></i> </a></span><span
-                            class="social-contact-item email"><a href="mailto:contact@ohevan.com"><i
-                                    class="fa-solid fa-fw fa-at fa-lg"></i> </a></span><span
-                            class="social-contact-item npm"><a target="_blank"
-                                href="https://www.npmjs.com/package/hexo-theme-redefine"><i
+                            class="social-contact-item email"><a href="#"><i class="fa-solid fa-fw fa-at fa-lg"></i>
+                            </a></span><span class="social-contact-item npm"><a target="_blank" href="#"><i
                                     class="fa-brands fa-fw fa-lg fa-npm"></i></a></span>
                     </div>
                 </div>
             </div>
-            <script>const scrollToMain = () => { console.log("scroll"); document.querySelector(".main-content-container").scrollIntoView({ behavior: "smooth" }) }</script>
+            <script>
+                // 打字动画控制器
+                let animationFrameId = null;
+
+                function initTyping() {
+                    const textEl = document.querySelector("#subtitle");
+                    if (!textEl) return;
+
+                    // 重置元素状态
+                    textEl.innerHTML = '';
+
+                    const texts = JSON.parse(textEl.getAttribute("data-text"));
+                    let index = 0;        // 当前文本索引
+                    let charIndex = 0;    // 字符索引
+                    let delta = 150;      // 打字间隔
+                    let start = null;     // 动画开始时间
+                    let isDeleting = false; // 删除状态
+
+                    function type(time) {
+                        if (!start) start = time;
+                        const progress = time - start;
+
+                        if (progress > delta) {
+                            const text = texts[index];
+                            if (!isDeleting) {
+                                textEl.innerHTML = text.slice(0, ++charIndex);
+                                delta = Math.random() * 50 + 100; // 随机打字速度
+                            } else {
+                                textEl.innerHTML = text.slice(0, charIndex--);
+                                delta = 50;
+                            }
+                            start = time;
+
+                            // 状态转换判断
+                            if (charIndex === text.length) {
+                                isDeleting = true;
+                                delta = 100;
+                                start = time + 1000;
+                            }
+
+                            if (charIndex < 0) {
+                                isDeleting = false;
+                                index = (index + 1) % texts.length;
+                                delta = 200;
+                                start = time + 200;
+                            }
+                        }
+
+                        animationFrameId = requestAnimationFrame(type);
+                    }
+
+                    // 清理之前的动画
+                    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                    animationFrameId = requestAnimationFrame(type);
+                }
+
+                // 页面生命周期管理
+                window.addEventListener('load', initTyping);
+
+                // 处理浏览器前进/后退缓存
+                window.addEventListener('pageshow', (event) => {
+                    if (event.persisted) {
+                        initTyping();
+                        console.log('从bfcache恢复，重新初始化动画');
+                    }
+                });
+
+                // 处理标签页切换
+                document.addEventListener('visibilitychange', () => {
+                    if (document.hidden) {
+                        if (animationFrameId) {
+                            cancelAnimationFrame(animationFrameId);
+                            animationFrameId = null;
+                            console.log('页面隐藏，停止动画');
+                        }
+                    } else {
+                        if (!animationFrameId) {
+                            initTyping();
+                            console.log('页面可见，重新启动动画');
+                        }
+                    }
+                });
+
+                // 滚动控制
+                const scrollToMain = () => { console.log("scroll"); document.querySelector(".main-content-container").scrollIntoView({ behavior: "smooth" }) }
+
+                // 窗口大小变化时重置布局
+                window.addEventListener('resize', () => {
+                    if (animationFrameId) {
+                        cancelAnimationFrame(animationFrameId);
+                        initTyping();
+                    }
+                });
+
+            </script>
         </div>
         <div class="main-content-container flex flex-col justify-between min-h-dvh">
             <div class="main-content-header">
                 <header class="navbar-container px-6 md:px-12">
                     <div class="navbar-content transition-navbar has-home-banner">
                         <div class="left"><a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/"><img
-                                    src="/images/redefine-favicon.svg" class="w-full h-full rounded-sm"> </a><a
+                                    src="/images/favicon.jpg" class="w-full h-full rounded-sm"> </a><a
                                 class="logo-title" href="/" data-navbar-initialized="1">
-                                <h1>Theme Redefine</h1>
+                                <h1>Weclome</h1>
                             </a></div>
                         <div class="right">
                             <div class="desktop">
@@ -199,22 +291,9 @@
                                                 class="fa-regular fa-house fa-fw"></i> HOME</a></li>
                                     <li class="navbar-item"><a href="/archives"><i
                                                 class="fa-regular fa-archive fa-fw"></i> ARCHIVES</a></li>
-                                    <li class="navbar-item"><a target="_blank" rel="noopener"
-                                            href="https://redefine-docs.ohevan.com"><i
-                                                class="fa-regular fa-book fa-fw"></i> DOCS</a></li>
-                                    <li class="navbar-item"><a target="_blank" rel="noopener"
-                                            href="https://github.com/EvanNotFound/hexo-theme-redefine"><i
-                                                class="fa-brands fa-github fa-fw"></i> GITHUB</a></li>
-                                    <li class="navbar-item"><a class="has-dropdown" href="#" onclick="&quot;return"
-                                            false;&#34;=""><i class="fa-regular fa-link fa-fw"></i> LINKS <i
+                                    <li class="navbar-item"><a class="has-dropdown" href="#"><i
+                                                class="fa-regular fa-link fa-fw"></i> LINKS <i
                                                 class="fa-solid fa-chevron-down fa-fw"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a target="_blank" rel="noopener"
-                                                    href="https://ohevan.com/about">ABOUT</a></li>
-                                            <li><a target="_blank" rel="noopener" href="https://ohevan.com">BLOG</a>
-                                            </li>
-                                            <li><a href="/showcase">SHOWCASE</a></li>
-                                        </ul>
                                     </li>
                                 </ul>
                             </div>
@@ -232,66 +311,10 @@
                                 data-navbar-initialized="1"><a
                                     class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
                                     href="/"><span>HOME </span><i class="fa-regular fa-house fa-sm fa-fw"></i></a></li>
-                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
-                                data-navbar-initialized="1"><a
-                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full"
-                                    href="/archives"><span>ARCHIVES </span><i
-                                        class="fa-regular fa-archive fa-sm fa-fw"></i></a></li>
-                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
-                                data-navbar-initialized="1"><a
-                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full"
-                                    target="_blank" rel="noopener" href="https://redefine-docs.ohevan.com"><span>DOCS
-                                    </span><i class="fa-regular fa-book fa-sm fa-fw"></i></a></li>
-                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
-                                data-navbar-initialized="1"><a
-                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full"
-                                    target="_blank" rel="noopener"
-                                    href="https://github.com/EvanNotFound/hexo-theme-redefine"><span>GITHUB </span><i
-                                        class="fa-brands fa-github fa-sm fa-fw"></i></a></li>
-                            <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
-                                <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
-                                    navbar-data-toggle="submenu-Links" data-event-listener-added="true"><span>LINKS
-                                    </span><i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i></div>
-                                <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
-                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl"
-                                        data-navbar-initialized="1"><a class="text-third-text-color text-xl"
-                                            target="_blank" rel="noopener" href="https://ohevan.com/about">ABOUT</a>
-                                    </div>
-                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl"
-                                        data-navbar-initialized="1"><a class="text-third-text-color text-xl"
-                                            target="_blank" rel="noopener" href="https://ohevan.com">BLOG</a></div>
-                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl"
-                                        data-navbar-initialized="1"><a class="text-third-text-color text-xl"
-                                            href="/showcase">SHOWCASE</a></div>
-                                </div>
-                            </li>
-                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
-                                data-navbar-initialized="1"><a
-                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
-                                    href="/tags"><span>Tags</span> <i class="fa-regular fa-tags fa-sm fa-fw"></i></a>
-                            </li>
-                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
-                                data-navbar-initialized="1"><a
-                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
-                                    href="/categories"><span>Categories</span> <i
-                                        class="fa-regular fa-folder fa-sm fa-fw"></i></a></li>
-                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
-                                data-navbar-initialized="1"><a
-                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
-                                    href="/essays"><span>Shuoshuo</span> <i
-                                        class="fa-regular fa-comment-dots fa-sm fa-fw"></i></a></li>
-                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
-                                data-navbar-initialized="1"><a
-                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
-                                    href="/masonry"><span>Photos</span> <i
-                                        class="fa-regular fa-images fa-sm fa-fw"></i></a></li>
-                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
-                                data-navbar-initialized="1"><a
-                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
-                                    href="/bookmarks"><span>Bookmarks</span> <i
-                                        class="fa-regular fa-bookmark fa-sm fa-fw"></i></a></li>
+
                         </ul>
-                        <div class="statistics flex justify-around my-2.5"><a
+                        <div class="statistics flex justify-around my-2.5">
+                            <!-- <a
                                 class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags"
                                 data-navbar-initialized="1">
                                 <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
@@ -300,11 +323,13 @@
                                 href="/categories" data-navbar-initialized="1">
                                 <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
                                 <div class="label text-third-text-color text-sm">Categories</div>
-                            </a><a class="item tag-count-item flex flex-col justify-center items-center w-20"
-                                href="/archives" data-navbar-initialized="1">
-                                <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
+                            </a> -->
+                            <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/"
+                                data-navbar-initialized="1">
+                                <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
                                 <div class="label text-third-text-color text-sm">Posts</div>
-                            </a></div>
+                            </a>
+                        </div>
                     </div>
                     <div class="window-mask" data-navbar-initialized="1"></div>
                 </header>
@@ -314,26 +339,26 @@
                     <div class="sticky-container sticky">
                         <div class="sidebar-links">
                             <div class="site-info">
-                                <div class="site-name">Theme Redefine</div>
-                                <div class="announcement">Redefine your writing.</div>
-                            </div><a class="links" href="/archives"><i class="fa-regular fa-archive icon-space"></i>
-                                <span class="link-name">Archives</span> </a><a class="links" href="/tags"><i
+                                <div class="site-name">Welcome</div>
+                                <div class="announcement">I will gradually improve my blog.</div>
+                            </div>
+                            <a class="links" href="/"><i class="fa-regular fa-archive icon-space"></i>
+                                <span class="link-name">Archives</span> </a><a class="links" href="/"><i
                                     class="fa-regular fa-tags icon-space"></i> <span class="link-name">Tags</span>
-                            </a><a class="links" href="/categories"><i class="fa-regular fa-folder icon-space"></i>
-                                <span class="link-name">Categories</span> </a><a class="links" href="/essays"><i
+                            </a><a class="links" href="/"><i class="fa-regular fa-folder icon-space"></i>
+                                <span class="link-name">Categories</span> </a><a class="links" href="/"><i
                                     class="fa-regular fa-comment-dots icon-space"></i> <span
-                                    class="link-name">Shuoshuo</span> </a><a class="links" href="/masonry"><i
-                                    class="fa-regular fa-images icon-space"></i> <span class="link-name">Photos</span>
-                            </a><a class="links" href="/bookmarks"><i class="fa-regular fa-bookmark icon-space"></i>
-                                <span class="link-name">Bookmarks</span></a>
+                                    class="link-name">Shuoshuo</span> </a>
+
                         </div>
                         <div class="sidebar-content" margintop="">
-                            <div class="avatar flex justify-center"><img src="/images/redefine-avatar.svg"></div>
+                            <div class="avatar flex justify-center"><img src="/images/touxiang.jpg"></div>
                             <div class="author flex flex-col justify-center my-2.5 mx-0">
-                                <div class="name">The Redefine Team</div>
+                                <div class="name">小芰的博客</div>
                                 <div class="label">MVP++</div>
                             </div>
-                            <div class="statistics flex justify-around my-2.5"><a
+                            <div class="statistics flex justify-around my-2.5">
+                                <!-- <a
                                     class="item tag-count-item flex flex-col justify-center items-center w-20"
                                     href="/tags">
                                     <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17
@@ -344,125 +369,84 @@
                                     <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12
                                     </div>
                                     <div class="label text-third-text-color text-sm">Categories</div>
-                                </a><a class="item tag-count-item flex flex-col justify-center items-center w-20"
-                                    href="/archives">
-                                    <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
+                                </a> -->
+                                <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/">
+                                    <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
                                     <div class="label text-third-text-color text-sm">Posts</div>
-                                </a></div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="main-content">
                     <div class="home-content-container">
                         <ul class="home-article-list">
+
                             <li class="home-article-item">
-                                                                <div id="home-article-thumbnail"                        
-                                               
+                                <div id="home-article-thumbnail"
                                     class="home-article-thumbnail relative h-[150px] overflow-hidden rounded-t-large"><a
-                                                                                href="/model.html"><img
-                                            src="/img/album.jpg" alt="Lorem Ipsum"                                      
-                                                 
+                                        href="/2007/01/09/Lorem%20Ipsum/"><img
+                                            src="https://assets.ohevan.com/img/d501efd15c4a39c92fd12faddf2b693d.webp"
+                                            alt="Lorem Ipsum"
                                             class="w-full h-full object-cover dark:brightness-75 transition-all"></a>
-                                                                    </div>
-                                                                <div class="flex flex-col gap-5 px-7 pb-7 pt-5">
-                                                                        <h3 class="home-article-title"><a
-                                            href="/model.html">3D模型</a></h3>
-                                                                        <div class="home-article-content markdown-body">
-                                        在这里我放了一个3D模型。</div>
-                                                                        <div class="home-article-meta-info-container">
-                                                                                <div class="home-article-meta-info">
-                                            <span><i                                                    
-                                                    class="fa-solid fa-calendars"></i>&nbsp; <span                      
-                                                                                  class="home-article-date"            
-                                                                                           
-                                                    data-date="Tue Jan 09 2007 09:41:05 GMT+0000">2025-3-11
-                                                                                                    </span></span><span
-                                                class="home-article-category"><i                                        
-                                                                class="fa-solid fa-folders"></i>&nbsp;<ul>
-                                                                                                        <li><a
-                                                            href="#">SOURSE</a>&nbsp;</li>
-                                                                                                    </ul></span><span
-                                                class="home-article-tag"><i                                            
-                                                            class="fa-solid fa-tags"></i>&nbsp;<ul>
-                                                                                                    </ul></span>
-                                        </div><a href="/model.html">了解更多|Read more<span                                
-                                                                class="seo-reader-text">Hello</span>&nbsp;<i            
-                                                                                   
+                                </div>
+                                <div class="flex flex-col gap-5 px-7 pb-7 pt-5">
+                                    <h3 class="home-article-title"><a href="/2007/01/09/Lorem%20Ipsum/">Lorem Ipsum</a>
+                                    </h3>
+                                    <div class="home-article-content markdown-body">Lorem ipsum dolor sit amet,
+                                        consectetur adipiscing elit. Sed euismod, magna vel tempor bibendum, justo massa
+                                        bibendum urna, a tincidunt metus velit vel velit. Praesent velit leo, pharetra
+                                        id mauris...</div>
+                                    <div class="home-article-meta-info-container">
+                                        <div class="home-article-meta-info"><span><i
+                                                    class="fa-solid fa-calendars"></i>&nbsp; <span
+                                                    class="home-article-date"
+                                                    data-date="Tue Jan 09 2007 09:41:05 GMT+0000">2007-01-09
+                                                </span></span><span class="home-article-category"><i
+                                                    class="fa-solid fa-folders"></i>&nbsp;<ul>
+                                                    <li><a href="/categories/Demo/">Demo</a>&nbsp;</li>
+                                                    <li>&gt;</li>
+                                                    <li><a href="/categories/Demo/Lorem-Ipsum/">Lorem Ipsum</a>&nbsp;
+                                                    </li>
+                                                </ul></span><span class="home-article-tag"><i
+                                                    class="fa-solid fa-tags"></i>&nbsp;<ul>
+                                                    <li><a href="/tags/Demo/">Demo</a>&nbsp;</li>
+                                                    <li>| <a href="/tags/Lorem-Ipsum/">Lorem Ipsum</a>&nbsp;</li>
+                                                </ul></span></div><a href="/2007/01/09/Lorem%20Ipsum/">Read more<span
+                                                class="seo-reader-text">Lorem Ipsum</span>&nbsp;<i
                                                 class="fa-solid fa-angle-right"></i></a>
-                                                                            </div>
-                                                                    </div>
-                                                            </li>
-
-                                                        <li class="home-article-item">
-                                                                <div id="home-article-thumbnail"                        
-                                               
-                                    class="home-article-thumbnail relative h-[150px] overflow-hidden rounded-t-large"><a
-                                                                                href="/album.html"><img
-                                            src="/img/album.jpg" alt="Lorem Ipsum"                                      
-                                                 
-                                            class="w-full h-full object-cover dark:brightness-75 transition-all"></a>
-                                                                    </div>
-                                                                <div class="flex flex-col gap-5 px-7 pb-7 pt-5">
-                                                                        <h3 class="home-article-title"><a
-                                            href="/album.html">3D旋转相框</a></h3>
-                                                                        <div class="home-article-content markdown-body">
-                                        在这里我放了一个3D旋转相框。</div>
-                                                                        <div class="home-article-meta-info-container">
-                                                                                <div class="home-article-meta-info">
-                                            <span><i                                                    
-                                                    class="fa-solid fa-calendars"></i>&nbsp; <span                      
-                                                                                  class="home-article-date"            
-                                                                                           
-                                                    data-date="Tue Jan 09 2007 09:41:05 GMT+0000">2025-3-11
-                                                                                                    </span></span><span
-                                                class="home-article-category"><i                                        
-                                                                class="fa-solid fa-folders"></i>&nbsp;<ul>
-                                                    <li><a href="#">SOURSE</a>&nbsp;</li>
-                                                                                                   
-                                                </ul></span><span class="home-article-tag"><i                          
-                                                                              class="fa-solid fa-tags"></i>&nbsp;<ul>
-                                                                                                    </ul></span>
-                                        </div><a href="/album.html">了解更多|Read more<span                                
-                                                                class="seo-reader-text">Hello</span>&nbsp;<i            
-                                                                                   
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="home-article-item">
+                                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                                    <h3 class="home-article-title"><a href="/2025/03/09/hello-world/">Hello World</a>
+                                    </h3>
+                                    <div class="home-article-content markdown-body">Welcome to Hexo! This is your very
+                                        first post. Check documentation for more info. If you get any problems when
+                                        using Hexo, you can find the answer in troubleshooting or you can ask me on
+                                        GitHub. Qu...</div>
+                                    <div class="home-article-meta-info-container">
+                                        <div class="home-article-meta-info"><span><i
+                                                    class="fa-solid fa-calendars"></i>&nbsp; <span
+                                                    class="home-article-date"
+                                                    data-date="Tue Jan 09 2007 09:41:05 GMT+0000">2007-01-09
+                                                </span></span><span class="home-article-category"><i
+                                                    class="fa-solid fa-folders"></i>&nbsp;<ul>
+                                                    <li><a href="/categories/Start/">Start</a>&nbsp;</li>
+                                                    <li>&gt;</li>
+                                                    <li><a href="/categories/Start/Run/">Run</a>&nbsp;</li>
+                                                </ul></span><span class="home-article-tag"><i
+                                                    class="fa-solid fa-tags"></i>&nbsp;<ul>
+                                                    <li><a href="/tags/Demo/">Demo</a>&nbsp;</li>
+                                                    <li>| <a href="/tags/First-Post/">First Post</a>&nbsp;</li>
+                                                    <li>| <a href="/tags/Hello-World/">Hello World</a>&nbsp;</li>
+                                                </ul></span></div><a href="/2007/01/09/hello-world/">Read more<span
+                                                class="seo-reader-text">Hello World</span>&nbsp;<i
                                                 class="fa-solid fa-angle-right"></i></a>
-                                            </div>
-                                                                    </div>
-                                                            </li>
-
-                                                        <li class="home-article-item">
-                                                                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                                                                        <h3 class="home-article-title">
-                                                                                <a href="/2025/03/09/hello-world/">
-                                                                                        FIND ME
-                                                                                    </a>
-                                                                            </h3>
-                                                                        <div class="home-article-content markdown-body">
-                                                                                你可以通过这个博客里面的链接找到我！
-                                                                            </div>
-
-                                                                        <div class="home-article-meta-info-container">
-                                                                                <div class="home-article-meta-info">
-                                                                                        <span><i
-                                                    class="fa-solid fa-calendars"></i>&nbsp;
-                                                                                                <span
-                                                    class="home-article-date"                                          
-                                                              data-date="Sun Mar 09 2025 10:22:38 GMT+0800">
-                                                                                                        2025-03-09
-                                                                                                    </span>
-                                                                                            </span>
-                                                                                    </div>
-                                                                                <a
-                                            href="/2025/03/09/hello-world/">了解更多|Read more<span                        
-                                                                        class="seo-reader-text">Hello
-                                                                                                World</span>&nbsp;<i
-                                                class="fa-solid fa-angle-right"></i></a>
-                                                                            </div>
-                                                                    </div>
-                                                            </li>
-
-
-
+                                    </div>
+                                </div>
+                            </li>
 
                         </ul>
                         <div class="home-paginator px-7 py-5">
@@ -476,22 +460,22 @@
                     class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
                     <div class="info-container py-3 text-center">
                         <div class="text-center">© <span>2022</span> - 2025&nbsp;&nbsp;<i
-                                class="fa-solid fa-code-pull-request"></i>&nbsp;&nbsp;<a href="/">The Redefine Team</a>
-                            <p class="post-count space-x-0.5"><span>7 posts in total </span><span>4.6k words in
+                                class="fa-solid fa-code-pull-request"></i>&nbsp;&nbsp;<a href="/">小芰的博客</a>
+                            <p class="post-count space-x-0.5"><span>3 posts in total </span><span>4.6k words in
                                     total</span></p>
                         </div>
                         <script data-swup-reload-script="" src="https://cn.vercount.one/js"></script>
-                        <div
+                        <!-- <div
                             class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
                             <span id="busuanzi_container_site_uv" class="lg:!block" style="display: inline;"><span
                                     class="text-sm">VISITOR COUNT</span> <span id="busuanzi_value_site_uv">10338</span>
                             </span><span id="busuanzi_container_site_pv" class="lg:!block"
                                 style="display: inline;"><span class="text-sm">TOTAL PAGE VIEWS</span> <span
                                     id="busuanzi_value_site_pv">91551</span></span>
-                        </div>
-                        <div
+                        </div> -->
+                        <!-- <div
                             class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
-                            <span class="lg:block text-sm">POWERED BY <!--?xml version="1.0" encoding="utf-8"?--><svg
+                            <span class="lg:block text-sm">POWERED BY <svg
                                     class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1"
                                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512"
@@ -503,7 +487,7 @@
                                 class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank"
                                     href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine
                                     v2.8.2</a></span>
-                        </div>
+                        </div> -->
                         <div>Blog up for <span class="odometer odometer-auto-theme" id="runtime_days">
                                 <div class="odometer-inside"><span class="odometer-digit"><span
                                             class="odometer-digit-spacer">8</span><span
