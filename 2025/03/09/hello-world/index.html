@@ -123,484 +123,460 @@
     </div>
 
     <main class="page-container" id="swup">
-
-
-
         <div class="main-content-container flex flex-col justify-between min-h-dvh">
             <div class="main-content-header">
-                <header class="navbar-container px-6 md:px-12">
-                    <div class="navbar-content transition-navbar has-home-banner">
-                        <div class="left">
-
-                            <a class="logo-title" href="/images/favicon.jpg">
-                                <h1>
-                                    Welcome
-                                </h1>
-                            </a>
-                        </div>
-
+                <!-- <header class="navbar-container px-6 md:px-12">
+                    <div class="navbar-content transition-navbar">
+                        <div class="left"><a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/"><img
+                                    src="/images/redefine-favicon.svg" class="w-full h-full rounded-sm"> </a><a
+                                class="logo-title" href="/" data-navbar-initialized="1">Theme Redefine</a></div>
                         <div class="right">
-                            <!-- PC -->
                             <div class="desktop">
                                 <ul class="navbar-list">
-
-
-
-
-                                    <li class="navbar-item">
-                                        <!-- Menu -->
-                                        <a class="active" href="/index.html">
-                                            <i class="fa-regular fa-house fa-fw"></i>
-                                            HOME
-                                        </a>
-                                        <!-- Submenu -->
+                                    <li class="navbar-item"><a href="/"><i class="fa-regular fa-house fa-fw"></i>
+                                            HOME</a></li>
+                                    <li class="navbar-item"><a href="/archives"><i
+                                                class="fa-regular fa-archive fa-fw"></i> ARCHIVES</a></li>
+                                    <li class="navbar-item"><a target="_blank" rel="noopener"
+                                            href="https://redefine-docs.ohevan.com"><i
+                                                class="fa-regular fa-book fa-fw"></i> DOCS</a></li>
+                                    <li class="navbar-item"><a target="_blank" rel="noopener"
+                                            href="https://github.com/EvanNotFound/hexo-theme-redefine"><i
+                                                class="fa-brands fa-github fa-fw"></i> GITHUB</a></li>
+                                    <li class="navbar-item"><a class="has-dropdown" href="#" onclick="&quot;return"
+                                            false;&#34;=""><i class="fa-regular fa-link fa-fw"></i> LINKS <i
+                                                class="fa-solid fa-chevron-down fa-fw"></i></a>
+                                        <ul class="sub-menu">
+                                            <li><a target="_blank" rel="noopener"
+                                                    href="https://ohevan.com/about">ABOUT</a></li>
+                                            <li><a target="_blank" rel="noopener" href="https://ohevan.com">BLOG</a>
+                                            </li>
+                                            <li><a href="/showcase">SHOWCASE</a></li>
+                                        </ul>
                                     </li>
-
-                                    <li class="navbar-item"><a href="#"><i class="fa-regular fa-archive fa-fw"></i>
-                                            ARCHIVES</a></li>
-
-                                    <li class="navbar-item"><a class="has-dropdown" href="#"><i
-                                                class="fa-regular fa-link fa-fw"></i> ABOUT </a>
-
-                                    </li>
-
                                 </ul>
                             </div>
-                            <!-- Mobile -->
                             <div class="mobile">
-
-                                <div class="icon-item navbar-bar">
+                                <div class="icon-item navbar-bar" data-navbar-initialized="1">
                                     <div class="navbar-bar-middle"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Mobile sheet -->
                     <div
                         class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
                         <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
-
-                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
-
-                                <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
-                                    href="/index.html">
-                                    <span>
-                                        HOME
-                                    </span>
-                                    <i class="fa-regular fa-house fa-sm fa-fw"></i>
-
-                                </a>
-                            </li>
-
                             <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
                                 data-navbar-initialized="1"><a
                                     class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full"
-                                    href="#"><span>ARCHIVES </span><i class="fa-regular fa-archive fa-sm fa-fw"></i></a>
-                            </li>
-
+                                    href="/"><span>HOME </span><i class="fa-regular fa-house fa-sm fa-fw"></i></a></li>
                             <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
                                 data-navbar-initialized="1"><a
                                     class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full"
-                                    href="#"><span>ABOUT </span><i class="fa-regular fa-link fa-fw"></a>
+                                    href="/archives"><span>ARCHIVES </span><i
+                                        class="fa-regular fa-archive fa-sm fa-fw"></i></a></li>
+                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
+                                data-navbar-initialized="1"><a
+                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full"
+                                    target="_blank" rel="noopener" href="https://redefine-docs.ohevan.com"><span>DOCS
+                                    </span><i class="fa-regular fa-book fa-sm fa-fw"></i></a></li>
+                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
+                                data-navbar-initialized="1"><a
+                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full"
+                                    target="_blank" rel="noopener"
+                                    href="https://github.com/EvanNotFound/hexo-theme-redefine"><span>GITHUB </span><i
+                                        class="fa-brands fa-github fa-sm fa-fw"></i></a></li>
+                            <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                                <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full"
+                                    navbar-data-toggle="submenu-Links" data-event-listener-added="true"><span>LINKS
+                                    </span><i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i></div>
+                                <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl"
+                                        data-navbar-initialized="1"><a class="text-third-text-color text-xl"
+                                            target="_blank" rel="noopener" href="https://ohevan.com/about">ABOUT</a>
+                                    </div>
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl"
+                                        data-navbar-initialized="1"><a class="text-third-text-color text-xl"
+                                            target="_blank" rel="noopener" href="https://ohevan.com">BLOG</a></div>
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl"
+                                        data-navbar-initialized="1"><a class="text-third-text-color text-xl"
+                                            href="/showcase">SHOWCASE</a></div>
+                                </div>
                             </li>
-
-
+                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
+                                data-navbar-initialized="1"><a
+                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                                    href="/tags"><span>Tags</span> <i class="fa-regular fa-tags fa-sm fa-fw"></i></a>
+                            </li>
+                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
+                                data-navbar-initialized="1"><a
+                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                                    href="/categories"><span>Categories</span> <i
+                                        class="fa-regular fa-folder fa-sm fa-fw"></i></a></li>
+                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
+                                data-navbar-initialized="1"><a
+                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                                    href="/essays"><span>Shuoshuo</span> <i
+                                        class="fa-regular fa-comment-dots fa-sm fa-fw"></i></a></li>
+                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
+                                data-navbar-initialized="1"><a
+                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                                    href="/masonry"><span>Photos</span> <i
+                                        class="fa-regular fa-images fa-sm fa-fw"></i></a></li>
+                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
+                                data-navbar-initialized="1"><a
+                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                                    href="/bookmarks"><span>Bookmarks</span> <i
+                                        class="fa-regular fa-bookmark fa-sm fa-fw"></i></a></li>
                         </ul>
-
-                        <div class="statistics flex justify-around my-2.5">
-                            <!-- <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-    <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
-    <div class="label text-third-text-color text-sm">Tags</div>
-</a>
-<a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-    <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
-    <div class="label text-third-text-color text-sm">Categories</div>
-</a> -->
-                            <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/">
-                                <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
+                        <div class="statistics flex justify-around my-2.5"><a
+                                class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags"
+                                data-navbar-initialized="1">
+                                <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+                                <div class="label text-third-text-color text-sm">Tags</div>
+                            </a><a class="item tag-count-item flex flex-col justify-center items-center w-20"
+                                href="/categories" data-navbar-initialized="1">
+                                <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
+                                <div class="label text-third-text-color text-sm">Categories</div>
+                            </a><a class="item tag-count-item flex flex-col justify-center items-center w-20"
+                                href="/archives" data-navbar-initialized="1">
+                                <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
                                 <div class="label text-third-text-color text-sm">Posts</div>
-                            </a>
-                        </div>
+                            </a></div>
                     </div>
-
-                    <div class="window-mask"></div>
-
-                </header>
+                    <div class="window-mask" data-navbar-initialized="1"></div>
+                </header> -->
             </div>
-
-            <div class="main-content-body transition-fade-up">
-
-
-                <div class="main-content">
-                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+            <div class="main-content-body transition-fade-up swup-transition-main">
+                <div class="main-content has-toc">
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full show-toc">
                         <div class="article-content-container">
-
                             <div class="article-title relative w-full">
-
                                 <div class="w-full flex items-center pt-6 justify-start">
                                     <h1
                                         class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">
-                                        Hello My Friend</h1>
+                                        Hello World</h1>
                                 </div>
-
                             </div>
-
-
                             <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
                                 <div
                                     class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
-                                    <img src="/images/touxiang.jpg">
+                                    <img src="/images/redefine-avatar.svg">
                                 </div>
                                 <div class="info flex flex-col justify-between">
-                                    <div class="author flex items-center">
-                                        <span class="name text-default-text-color text-lg font-semibold">小芰的博客</span>
-
-                                        <span
-                                            class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv1</span>
-
+                                    <div class="author flex items-center"><span
+                                            class="name text-default-text-color text-lg font-semibold">The Redefine
+                                            Team</span> <span
+                                            class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">MVP++</span>
                                     </div>
                                     <div class="meta-info">
-                                        <div class="article-meta-info">
-                                            <span class="article-date article-meta-item">
-                                                <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-                                                <span class="desktop">2025-03-09 10:22:38</span>
-                                                <span class="mobile">2025-03-09 10:22:38</span>
-                                                <span class="hover-info">Created</span>
-                                            </span>
-
-                                            <span class="article-date article-meta-item">
-                                                <i class="fa-regular fa-wrench"></i>&nbsp;
-                                                <span class="desktop">2025-03-09 10:29:39</span>
-                                                <span class="mobile">2025-03-09 10:29:39</span>
-                                                <span class="hover-info">Updated</span>
-                                            </span>
-
-
-
-
-
-
-
-                                            <span class="article-pv article-meta-item">
-                                                <i class="fa-regular fa-eye"></i>&nbsp;<span
-                                                    id="busuanzi_value_page_pv"></span>
-                                            </span>
-
+                                        <div class="article-meta-info"><span class="article-date article-meta-item"><i
+                                                    class="fa-regular fa-pen-fancy"></i>&nbsp; <span
+                                                    class="desktop">2025-03-11 09:41:05</span> <span
+                                                    class="mobile">2025-03-11 09:41:05</span> <span
+                                                    class="hover-info">Created</span> </span><span
+                                                class="article-date article-meta-item"><i
+                                                    class="fa-regular fa-wrench"></i>&nbsp; <span
+                                                    class="desktop">2025-03-11 01:48:27</span> <span
+                                                    class="mobile">2025-03-11 01:48:27</span> <span
+                                                    class="hover-info">Updated</span> </span>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-
                             <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-                                <p>你可以通过下面的方式找到我</p>
-
-                                <h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink"
-                                        title="Create a new post"></a>微信|Wechat</h3>
-                                <p>更多信息|More info: <a target="_blank" rel="noopener" href="/wechat.html">微信|Wechat</a>
+                                <p>Welcome to <a class="link" target="_blank" rel="noopener"
+                                        href="https://hexo.io/">Hexo<i
+                                            class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>!
+                                    This is your very first post. Check <a class="link" target="_blank" rel="noopener"
+                                        href="https://hexo.io/docs/">documentation<i
+                                            class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>
+                                    for more info. If you get any problems when using Hexo, you can find the answer in
+                                    <a class="link" target="_blank" rel="noopener"
+                                        href="https://hexo.io/docs/troubleshooting.html">troubleshooting<i
+                                            class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>
+                                    or you can ask me on <a class="link" target="_blank" rel="noopener"
+                                        href="https://github.com/hexojs/hexo/issues">GitHub<i
+                                            class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>.
                                 </p>
-
-
-                                <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>QQ
-                                </h3>
-
-                                <p>更多信息|More info: <a target="_blank" rel="noopener" href="/qq.html">QQ</a></p>
-
-
+                                <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink"
+                                        title="Quick Start"></a>Quick Start</h2>
+                                <h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink"
+                                        title="Create a new post"></a>Create a new post</h3>
+                                <div class="code-container" data-rel="Bash">
+                                    <div class="highlight-container">
+                                        <figure class="iseeu highlight bash">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="gutter">
+                                                            <pre><span class="line">1</span><br></pre>
+                                                        </td>
+                                                        <td class="code">
+                                                            <pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </figure>
+                                        <div class="copy-button"><i class="fa-regular fa-copy"></i></div>
+                                        <div class="fold-button"><i class="fa-solid fa-chevron-down"></i></div>
+                                    </div>
+                                </div>
+                                <p>More info: <a class="link" target="_blank" rel="noopener"
+                                        href="https://hexo.io/docs/writing.html">Writing<i
+                                            class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>
+                                </p>
+                                <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run
+                                    server</h3>
+                                <div class="code-container" data-rel="Bash">
+                                    <div class="highlight-container">
+                                        <figure class="iseeu highlight bash">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="gutter">
+                                                            <pre><span class="line">1</span><br></pre>
+                                                        </td>
+                                                        <td class="code">
+                                                            <pre><span class="line">$ hexo server</span><br></pre>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </figure>
+                                        <div class="copy-button"><i class="fa-regular fa-copy"></i></div>
+                                        <div class="fold-button"><i class="fa-solid fa-chevron-down"></i></div>
+                                    </div>
+                                </div>
+                                <p>More info: <a class="link" target="_blank" rel="noopener"
+                                        href="https://hexo.io/docs/server.html">Server<i
+                                            class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>
+                                </p>
                                 <h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink"
-                                        title="Generate static files"></a>抖音|Tiktok</h3>
-                                <p>更多信息|More info: <a target="_blank" rel="noopener"
-                                        href="https://hexo.io/docs/generating.html">抖音|Tiktok</a></p>
-
-
+                                        title="Generate static files"></a>Generate static files</h3>
+                                <div class="code-container" data-rel="Bash">
+                                    <div class="highlight-container">
+                                        <figure class="iseeu highlight bash">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="gutter">
+                                                            <pre><span class="line">1</span><br></pre>
+                                                        </td>
+                                                        <td class="code">
+                                                            <pre><span class="line">$ hexo generate</span><br></pre>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </figure>
+                                        <div class="copy-button"><i class="fa-regular fa-copy"></i></div>
+                                        <div class="fold-button"><i class="fa-solid fa-chevron-down"></i></div>
+                                    </div>
+                                </div>
+                                <p>More info: <a class="link" target="_blank" rel="noopener"
+                                        href="https://hexo.io/docs/generating.html">Generating<i
+                                            class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>
+                                </p>
                                 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink"
-                                        title="Deploy to remote sites"></a>BiliBili</h3>
-                                <p>更多信息|More info: <a target="_blank" rel="noopener"
-                                        href="https://hexo.io/docs/one-command-deployment.html">BiliBili</a></p>
-
-                                <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-site" class="headerlink"
-                                        title="Deploy to remote sites"></a>Github</h3>
-                                <p>更多信息|More info: <a target="_blank" rel="noopener"
-                                        href="https://hexo.io/docs/one-command-deployment.html">Github</a></p>
-
+                                        title="Deploy to remote sites"></a>Deploy to remote sites</h3>
+                                <div class="code-container" data-rel="Bash">
+                                    <div class="highlight-container">
+                                        <figure class="iseeu highlight bash">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="gutter">
+                                                            <pre><span class="line">1</span><br></pre>
+                                                        </td>
+                                                        <td class="code">
+                                                            <pre><span class="line">$ hexo deploy</span><br></pre>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </figure>
+                                        <div class="copy-button"><i class="fa-regular fa-copy"></i></div>
+                                        <div class="fold-button"><i class="fa-solid fa-chevron-down"></i></div>
+                                    </div>
+                                </div>
+                                <p>More info: <a class="link" target="_blank" rel="noopener"
+                                        href="https://hexo.io/docs/deployment.html">Deployment<i
+                                            class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>
+                                </p>
                             </div>
-
-
                             <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
                                 <div class="article-copyright-info-container">
                                     <ul>
-                                        <li><strong>Title:</strong> 联系方式</li>
-                                        <li><strong>Author:</strong> 小芰</li>
-                                        <li><strong>创建于|Created at
-                                                :</strong> 2025-03-09 10:22:38</li>
-
-                                        <li>
-                                            <strong>更新于|Updated at
-                                                :</strong> 2025-03-09 10:29:39
-                                        </li>
-
+                                        <li><strong>Title:</strong> Hello World</li>
+                                        <li><strong>Author:</strong> The Redefine Team</li>
+                                        <li><strong>Created at :</strong> 2007-01-09 09:41:05</li>
+                                        <li><strong>Updated at :</strong> 2025-02-26 01:48:27</li>
 
                                     </ul>
                                 </div>
-
                             </div>
 
-
-
-
-
-
-
-
-
-
                             <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
-                                <div class="comments-container mt-10 w-full ">
+                                <div class="comments-container mt-10 w-full">
                                     <div id="comment-anchor" class="w-full h-2.5"></div>
                                     <div
                                         class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
                                         Comments:Close
                                     </div>
 
-
-
-
-                                    <!-- <div id="waline"></div>
-                                <script type="module" data-swup-reload-script>
-                                    import { init } from '/js/libs/waline.mjs';
-
-                                    function loadWaline() {
-                                        init({
-                                            el: '#waline',
-                                            serverURL: 'https://example.example.com',
-                                            lang: 'zh-CN',
-                                            dark: 'body[class~="dark-mode"]',
-                                            reaction: false,
-                                            requiredMeta: ['nick', 'mail'],
-                                            emoji: [],
-
-
-                                        });
-                                    }
-
-                                    if (typeof swup !== 'undefined') {
-                                        loadWaline();
-                                    } else {
-                                        window.addEventListener('DOMContentLoaded', loadWaline);
-                                    }
-                                </script> -->
-
-
-
-
-
                                 </div>
-
                             </div>
-
                         </div>
-
-
                         <div class="toc-content-container">
                             <div class="post-toc-wrap">
                                 <div class="post-toc">
-                                    <div class="toc-title">在这一章</div>
-                                    <div class="page-title">联系方式</div>
+                                    <div class="toc-title">On this page</div>
+                                    <div class="page-title">Hello World</div>
                                     <ol class="nav">
-                                        <ol class="nav-child">
-                                            <li class="nav-item nav-level-3"><a class="nav-link"
-                                                    href="#Create-a-new-post"><span
-                                                        class="nav-text">微信|Wechat</span></a>
-                                            </li>
-                                            <li class="nav-item nav-level-3"><a class="nav-link"
-                                                    href="#Run-server"><span class="nav-text">QQ</span></a></li>
-                                            <li class="nav-item nav-level-3"><a class="nav-link"
-                                                    href="#Generate-static-files"><span
-                                                        class="nav-text">抖音|Tiktok</span></a></li>
-                                            <li class="nav-item nav-level-3"><a class="nav-link"
-                                                    href="#Deploy-to-remote-sites"><span
-                                                        class="nav-text">BiliBili</span></a></li>
-                                            <li class="nav-item nav-level-3"><a class="nav-link"
-                                                    href="#Deploy-to-remote-site"><span
-                                                        class="nav-text">Github</span></a>
-                                            </li>
-                                        </ol>
+                                        <li class="nav-item nav-level-2"><a class="nav-link active active-current"
+                                                href="#Quick-Start"><span class="nav-text">Quick Start</span></a>
+                                            <ol class="nav-child">
+                                                <li class="nav-item nav-level-3"><a class="nav-link"
+                                                        href="#Create-a-new-post"><span class="nav-text">Create a new
+                                                            post</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link"
+                                                        href="#Run-server"><span class="nav-text">Run server</span></a>
+                                                </li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link"
+                                                        href="#Generate-static-files"><span class="nav-text">Generate
+                                                            static files</span></a></li>
+                                                <li class="nav-item nav-level-3"><a class="nav-link"
+                                                        href="#Deploy-to-remote-sites"><span class="nav-text">Deploy to
+                                                            remote sites</span></a></li>
+                                            </ol>
+                                        </li>
                                     </ol>
-
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
-
             </div>
-
             <div class="main-content-footer">
                 <footer
                     class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
                     <div class="info-container py-3 text-center">
-
-                        <div class="text-center">
-                            &copy;
-
-                            <span>2022</span>
-                            -
-
-                            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat"
-                                style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a
-                                href="#">小芰的博客</a>
-
-
-                            <p class="post-count space-x-0.5">
-                                <span>
-                                    1 posts in total
-                                </span>
-
-                            </p>
-
+                        <div class="text-center">© <span>2022</span> - 2025&nbsp;&nbsp;<i
+                                class="fa-solid fa-code-pull-request"></i>&nbsp;&nbsp;<a href="/">The Redefine Team</a>
+                            <p class="post-count space-x-0.5"><span>7 posts in total </span><span>4.6k words in
+                                    total</span></p>
                         </div>
-
-                        <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
-                        <!-- <div
-                        class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
-
-                        <span id="busuanzi_container_site_uv" class="lg:!block">
-                            <span class="text-sm">VISITOR COUNT</span>
-                            <span id="busuanzi_value_site_uv"></span>
-                        </span>
-
-
-                        <span id="busuanzi_container_site_pv" class="lg:!block">
-                            <span class="text-sm">TOTAL PAGE VIEWS</span>
-                            <span id="busuanzi_value_site_pv"></span>
-                        </span>
-
-                    </div> -->
-
-                        <!-- <div
-                        class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
-                        <span class="lg:block text-sm">POWERED BY
-                            <?xml version="1.0" encoding="utf-8"?>
-                            <!DOCTYPE svg
-                                PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg
-                                class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1"
-                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
-                                y="0px" width="1rem" height="1rem" viewBox="0 0 512 512"
-                                enable-background="new 0 0 512 512" xml:space="preserve">
-                                <path fill="#0E83CD"
-                                    d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z" />
-                            </svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a>
-                        </span>
-                        <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank"
-                                href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
-                    </div> -->
-
-
-                        <div>
-                            Blog up for <span class="odometer" id="runtime_days"></span> days <span class="odometer"
-                                id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min
-                            <span class="odometer" id="runtime_seconds"></span> Sec
+                        <script data-swup-reload-script="" src="https://cn.vercount.one/js"></script>
+                        <div
+                            class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                            <span id="busuanzi_container_site_uv" class="lg:!block" style="display: inline;"><span
+                                    class="text-sm">VISITOR COUNT</span> <span id="busuanzi_value_site_uv">10342</span>
+                            </span><span id="busuanzi_container_site_pv" class="lg:!block"
+                                style="display: inline;"><span class="text-sm">TOTAL PAGE VIEWS</span> <span
+                                    id="busuanzi_value_site_pv">91566</span></span>
                         </div>
-
-
-                        <script data-swup-reload-script>
-                            try {
-                                function odometer_init() {
-                                    const elements = document.querySelectorAll('.odometer');
-                                    elements.forEach(el => {
-                                        new Odometer({
-                                            el,
-                                            format: '( ddd).dd',
-                                            duration: 200
-                                        });
-                                    });
-                                }
-                                odometer_init();
-                            } catch (error) { }
-                        </script>
-
-
-
+                        <div
+                            class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+                            <span class="lg:block text-sm">POWERED BY <!--?xml version="1.0" encoding="utf-8"?--><svg
+                                    class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512"
+                                    enable-background="new 0 0 512 512" xml:space="preserve">
+                                    <path fill="#0E83CD"
+                                        d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z">
+                                    </path>
+                                </svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span> <span
+                                class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank"
+                                    href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine
+                                    v2.8.2</a></span>
+                        </div>
+                        <div>Blog up for <span class="odometer odometer-auto-theme" id="runtime_days">
+                                <div class="odometer-inside"><span class="odometer-digit"><span
+                                            class="odometer-digit-spacer">8</span><span
+                                            class="odometer-digit-inner"><span class="odometer-ribbon"><span
+                                                    class="odometer-ribbon-inner"><span
+                                                        class="odometer-value">9</span></span></span></span></span><span
+                                        class="odometer-digit"><span class="odometer-digit-spacer">8</span><span
+                                            class="odometer-digit-inner"><span class="odometer-ribbon"><span
+                                                    class="odometer-ribbon-inner"><span
+                                                        class="odometer-value">3</span></span></span></span></span><span
+                                        class="odometer-digit"><span class="odometer-digit-spacer">8</span><span
+                                            class="odometer-digit-inner"><span class="odometer-ribbon"><span
+                                                    class="odometer-ribbon-inner"><span
+                                                        class="odometer-value">7</span></span></span></span></span>
+                                </div>
+                            </span> days <span class="odometer odometer-auto-theme" id="runtime_hours">
+                                <div class="odometer-inside"><span class="odometer-digit"><span
+                                            class="odometer-digit-spacer">8</span><span
+                                            class="odometer-digit-inner"><span class="odometer-ribbon"><span
+                                                    class="odometer-ribbon-inner"><span
+                                                        class="odometer-value">7</span></span></span></span></span>
+                                </div>
+                            </span> hrs <span class="odometer odometer-auto-theme" id="runtime_minutes">
+                                <div class="odometer-inside"><span class="odometer-digit"><span
+                                            class="odometer-digit-spacer">8</span><span
+                                            class="odometer-digit-inner"><span class="odometer-ribbon"><span
+                                                    class="odometer-ribbon-inner"><span
+                                                        class="odometer-value">4</span></span></span></span></span><span
+                                        class="odometer-digit"><span class="odometer-digit-spacer">8</span><span
+                                            class="odometer-digit-inner"><span class="odometer-ribbon"><span
+                                                    class="odometer-ribbon-inner"><span
+                                                        class="odometer-value">0</span></span></span></span></span>
+                                </div>
+                            </span> Min <span
+                                class="odometer odometer-auto-theme             odometer-animating-up odometer-animating"
+                                id="runtime_seconds">
+                                <div class="odometer-inside"><span class="odometer-digit"><span
+                                            class="odometer-digit-spacer">8</span><span
+                                            class="odometer-digit-inner"><span class="odometer-ribbon"><span
+                                                    class="odometer-ribbon-inner">
+                                                    <div class="odometer-value odometer-first-value">0</div>
+                                                    <div class="odometer-value odometer-last-value">1</div>
+                                                </span></span></span></span></div>
+                            </span> Sec</div>
+                        <script
+                            data-swup-reload-script="">try { function odometer_init() { document.querySelectorAll(".odometer").forEach(e => { new Odometer({ el: e, format: "( ddd).dd", duration: 200 }) }) } odometer_init() } catch (e) { }</script>
+                        <script data-swup-reload-script="" defer="" src="https://events.ohevan.com/script.js"
+                            data-website-id="d70a02b2-4de2-4995-8a26-7bc745a8b460"></script>
                     </div>
                 </footer>
             </div>
         </div>
-
-
         <div class="post-tools">
             <div class="post-tools-container">
                 <ul class="article-tools-list">
-                    <!-- TOC aside toggle -->
-
-                    <li class="right-bottom-tools page-aside-toggle">
-                        <i class="fa-regular fa-outdent"></i>
-                    </li>
-
-
-                    <!-- go comment -->
-
-                    <li class="go-comment">
-                        <i class="fa-regular fa-comments"></i>
-                    </li>
-
+                    <li class="right-bottom-tools page-aside-toggle" style="display: flex;"><i
+                            class="fa-regular fas fa-indent"></i></li>
+                    <li class="go-comment"><i class="fa-regular fa-comments"></i></li>
                 </ul>
             </div>
         </div>
-
-
         <div class="right-side-tools-container">
             <div class="side-tools-container">
                 <ul class="hidden-tools-list">
-                    <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
-                        <i class="fa-regular fa-magnifying-glass-plus"></i>
-                    </li>
-
-                    <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
-                        <i class="fa-regular fa-magnifying-glass-minus"></i>
-                    </li>
-
-                    <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
-                        <i class="fa-regular fa-moon"></i>
-                    </li>
-
-                    <!-- rss -->
-
-
-
-
-                    <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
-                        <i class="fa-regular fa-arrow-down"></i>
-                    </li>
+                    <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center"><i
+                            class="fa-regular fa-magnifying-glass-plus"></i></li>
+                    <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center"><i
+                            class="fa-regular fa-magnifying-glass-minus"></i></li>
+                    <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center"><i
+                            class="fa-regular fa-moon"></i></li>
+                    <li class="right-bottom-tools rss flex justify-center items-center"><a
+                            class="flex justify-center items-center" href="/atom.xml" target="_blank"><i
+                                class="fa-regular fa-rss"></i></a></li>
+                    <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center"><i
+                            class="fa-regular fa-arrow-down"></i></li>
                 </ul>
-
                 <ul class="visible-tools-list">
-                    <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
-                        <i class="fa-regular fa-cog fa-spin"></i>
-                    </li>
-
-                    <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
-                        <i class="arrow-up fas fa-arrow-up"></i>
-                        <span class="percent"></span>
-                    </li>
-
-
+                    <li class="right-bottom-tools toggle-tools-list flex justify-center items-center"><i
+                            class="fa-regular fa-cog fa-spin"></i></li>
+                    <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center"><i
+                            class="arrow-up fas fa-arrow-up"></i> <span class="percent">0</span></li>
                 </ul>
             </div>
         </div>
-
-        <div class="image-viewer-container">
-            <img src="">
-        </div>
-
-
-
+        <div class="image-viewer-container"><img src=""></div>
     </main>
 
 
