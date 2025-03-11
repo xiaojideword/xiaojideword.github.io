@@ -167,12 +167,10 @@
         <div class="home-banner-container flex justify-center items-center transition-fade relative">
 
             <div class="content mt-8 flex flex-col justify-center items-center transition-fade-down">
+
                 <div class="description flex flex-col justify-center items-center w-screen font-medium text-center">
-                    Welcome,my friend
-
-
-                    <p><i id="subtitle" data-text='["I am 小芰.", "This is my blog."]'></i></p>
-
+                    Welcome<p><i id="subtitle" data-text='["I am 小芰.", "This is my blog."]'>My friend.</i><span
+                            class="typed-cursor typed-cursor--blink" aria-hidden="true">|</span></p>
                 </div>
 
                 <div
@@ -192,7 +190,6 @@
                 </div>
 
             </div>
-
 
 
             <script>
@@ -221,10 +218,10 @@
                             const text = texts[index];
                             if (!isDeleting) {
                                 textEl.innerHTML = text.slice(0, ++charIndex);
-                                delta = Math.random() * 50 + 100; // 随机打字速度
+                                delta = 150; // 随机打字速度
                             } else {
                                 textEl.innerHTML = text.slice(0, charIndex--);
-                                delta = 50;
+                                delta = 150;
                             }
                             start = time;
 
@@ -238,7 +235,7 @@
                             if (charIndex < 0) {
                                 isDeleting = false;
                                 index = (index + 1) % texts.length;
-                                delta = 200;
+                                delta = 100;
                                 start = time + 200;
                             }
                         }
@@ -278,7 +275,11 @@
                     }
                 });
 
-
+                const scrollToMain = () => {
+                    console.log('scroll');
+                    const target = document.querySelector('.main-content-container');
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
 
                 // 窗口大小变化时重置布局
                 window.addEventListener('resize', () => {
@@ -288,11 +289,7 @@
                     }
                 });
 
-                const scrollToMain = () => {
-                    console.log('scroll');
-                    const target = document.querySelector('.main-content-container');
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
+
             </script>
         </div>
 
@@ -303,7 +300,7 @@
                     <div class="navbar-content transition-navbar has-home-banner">
                         <div class="left">
 
-                            <a class="logo-title" href="/">
+                            <a class="logo-title" href="/images/favicon.jpg">
                                 <h1>
                                     Welcome
                                 </h1>
@@ -373,7 +370,7 @@
                             <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
                                 data-navbar-initialized="1"><a
                                     class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full"
-                                    href="#"><span>ABOUT </span><i class="fa-regular fa-archive fa-fw"></i></a>
+                                    href="#"><span>ABOUT </span><i class="fa-regular fa-link fa-fw"></a>
                             </li>
 
 
@@ -398,15 +395,16 @@
             <div class="window-mask"></div>
 
             </header>
-
-
         </div>
 
-        <div class="main-content-body transition-fade-up">
+
+
+
+        <div class="main-content-body transition-fade-up swup-transition-main">
+
 
             <div class="home-sidebar-container">
                 <div class="sticky-container sticky">
-
                     <div class="sidebar-links">
                         <div class="site-info">
                             <div class="site-name">Welcome My Friend</div>
@@ -418,47 +416,38 @@
                                 class="link-name">Categories</span> </a><a class="links" href="/"><i
                                 class="fa-regular fa-comment-dots icon-space"></i> <span
                                 class="link-name">Shuoshuo</span> </a>
+                        </a>
                     </div>
-
-                    <div class="sidebar-content" margintop>
-                        <div class="avatar flex justify-center">
-                            <img src="/images/touxiang.jpg">
-                        </div>
+                    <div class="sidebar-content" margintop="">
+                        <div class="avatar flex justify-center"><img src="/images/touxiang.jpg"></div>
                         <div class="author flex flex-col justify-center my-2.5 mx-0">
                             <div class="name">小芰的博客</div>
-
-                            <div class="label">Lv1</div>
-
+                            <div class="label">MVP++</div>
                         </div>
                         <div class="statistics flex justify-around my-2.5">
-                            <!-- <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-                                <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+                            <!-- <a
+                                class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+                                <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
                                 <div class="label text-third-text-color text-sm">Tags</div>
                             </a>
                             <a class="item tag-count-item flex flex-col justify-center items-center w-20"
                                 href="/categories">
-                                <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+                                <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
                                 <div class="label text-third-text-color text-sm">Categories</div>
                             </a> -->
-                            <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/">
+                            <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="#">
                                 <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
                                 <div class="label text-third-text-color text-sm">Posts</div>
                             </a>
                         </div>
                     </div>
-
-
                 </div>
             </div>
-
 
 
             <div class="main-content">
                 <div class="home-content-container">
                     <ul class="home-article-list">
-
-
-
 
                         <li class="home-article-item">
                             <div id="home-article-thumbnail"
