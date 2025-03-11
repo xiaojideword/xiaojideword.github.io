@@ -121,58 +121,47 @@
     </div>
 
     <main class="page-container" id="swup">
-
-
-
         <style>
             .home-banner-container {
-                background: none !important;
+                background: 0 0 !important
             }
 
             .home-article-item,
-            .sidebar-links,
-            .sidebar-content,
-            a.page-number,
-            a.extend,
-            .sidebar-links .links:hover,
             .right-bottom-tools,
+            .sidebar-content,
+            .sidebar-links,
+            .sidebar-links .links:hover,
+            a.extend,
+            a.page-number,
             footer.footer {
-                background-color: var(--background-color-transparent-80) !important;
+                background-color: var(--background-color-transparent-80) !important
             }
 
             .right-bottom-tools:hover,
-            a.page-number:hover,
-            a.extend:hover {
-                background-color: var(--primary-color) !important;
+            a.extend:hover,
+            a.page-number:hover {
+                background-color: var(--primary-color) !important
             }
 
-            .site-info,
-            .home-article-sticky-label {
-                background-color: var(--background-color-transparent-15) !important;
+            .home-article-sticky-label,
+            .site-info {
+                background-color: var(--background-color-transparent-15) !important
             }
 
             .home-article-sticky-label {
-                backdrop-filter: none !important;
+                backdrop-filter: none !important
             }
         </style>
-        <div
-            class="home-banner-background transition-fade fixed top-0 left-0 w-screen h-screen scale-125 sm:scale-110 box-border will-change-transform bg-cover">
-            <img src="/images/wallhaven-wqery6-light.webp" alt="home-banner-background"
-                class="w-full h-full object-cover dark:hidden">
-            <img src="/images/wallhaven-wqery6-dark.webp" alt="home-banner-background"
-                class="w-full h-full object-cover hidden dark:block">
-        </div>
-
-
-        <div class="home-banner-container flex justify-center items-center transition-fade relative">
-
+        <div class="home-banner-background transition-fade fixed top-0 left-0 w-screen h-screen scale-125 sm:scale-110 box-border will-change-transform bg-cover"
+            style="filter: blur(15px);"><img src="/images/wallhaven-wqery6-light.webp" alt="home-banner-background"
+                class="w-full h-full object-cover dark:hidden"> <img src="/images/wallhaven-wqery6-dark.webp"
+                alt="home-banner-background" class="w-full h-full object-cover hidden dark:block"></div>
+        <div class="home-banner-container flex justify-center items-center transition-fade relative"
+            style="height: 774px;">
             <div class="content mt-8 flex flex-col justify-center items-center transition-fade-down">
-
                 <div class="description flex flex-col justify-center items-center w-screen font-medium text-center">
-                    Welcome<p><i id="subtitle" data-text='["I am 小芰.", "This is my blog."]'>My friend.</i><span
-                            class="typed-cursor typed-cursor--blink" aria-hidden="true">|</span></p>
+                    Theme Redefine<p><i id="subtitle">R</i><span class="typed-cursor" aria-hidden="true">|</span></p>
                 </div>
-
                 <div
                     class="absolute bottom-0.5 flex flex-row justify-between max-w-[1340px] items-center w-full px-8 sm:px-12">
                     <div class="flex p-3 bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-lg border border-white/20 dark:border-gray-500/30 group rounded-full cursor-pointer flex justify-center items-center aspect-square h-full shadow-redefine-flat hover:shadow-redefine-flat-hover transition-shadow"
@@ -181,489 +170,556 @@
                     </div>
                     <div
                         class="social-contacts px-6 py-3 bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-lg border border-white/20 dark:border-gray-500/30 shadow-redefine-flat rounded-full flex flex-row gap-3 items-center">
-                        <span class="social-contact-item github"><a target="_blank" href="#"><i
+                        <span class="social-contact-item github"><a target="_blank"
+                                href="https://github.com/EvanNotFound/hexo-theme-redefine"><i
                                     class="fa-brands fa-fw fa-lg fa-github"></i> </a></span><span
-                            class="social-contact-item email"><a href="#"><i class="fa-solid fa-fw fa-at fa-lg"></i>
-                            </a></span><span class="social-contact-item npm"><a target="_blank" href="#"><i
+                            class="social-contact-item email"><a href="mailto:contact@ohevan.com"><i
+                                    class="fa-solid fa-fw fa-at fa-lg"></i> </a></span><span
+                            class="social-contact-item npm"><a target="_blank"
+                                href="https://www.npmjs.com/package/hexo-theme-redefine"><i
                                     class="fa-brands fa-fw fa-lg fa-npm"></i></a></span>
                     </div>
                 </div>
-
             </div>
-
-
-            <script>
-                // 打字动画控制器
-                let animationFrameId = null;
-
-                function initTyping() {
-                    const textEl = document.querySelector("#subtitle");
-                    if (!textEl) return;
-
-                    // 重置元素状态
-                    textEl.innerHTML = '';
-
-                    const texts = JSON.parse(textEl.getAttribute("data-text"));
-                    let index = 0;        // 当前文本索引
-                    let charIndex = 0;    // 字符索引
-                    let delta = 150;      // 打字间隔
-                    let start = null;     // 动画开始时间
-                    let isDeleting = false; // 删除状态
-
-                    function type(time) {
-                        if (!start) start = time;
-                        const progress = time - start;
-
-                        if (progress > delta) {
-                            const text = texts[index];
-                            if (!isDeleting) {
-                                textEl.innerHTML = text.slice(0, ++charIndex);
-                                delta = 150; // 随机打字速度
-                            } else {
-                                textEl.innerHTML = text.slice(0, charIndex--);
-                                delta = 150;
-                            }
-                            start = time;
-
-                            // 状态转换判断
-                            if (charIndex === text.length) {
-                                isDeleting = true;
-                                delta = 100;
-                                start = time + 1000;
-                            }
-
-                            if (charIndex < 0) {
-                                isDeleting = false;
-                                index = (index + 1) % texts.length;
-                                delta = 100;
-                                start = time + 200;
-                            }
-                        }
-
-                        animationFrameId = requestAnimationFrame(type);
-                    }
-
-                    // 清理之前的动画
-                    if (animationFrameId) cancelAnimationFrame(animationFrameId);
-                    animationFrameId = requestAnimationFrame(type);
-                }
-
-                // 页面生命周期管理
-                window.addEventListener('load', initTyping);
-
-                // 处理浏览器前进/后退缓存
-                window.addEventListener('pageshow', (event) => {
-                    if (event.persisted) {
-                        initTyping();
-                        console.log('从bfcache恢复，重新初始化动画');
-                    }
-                });
-
-                // 处理标签页切换
-                document.addEventListener('visibilitychange', () => {
-                    if (document.hidden) {
-                        if (animationFrameId) {
-                            cancelAnimationFrame(animationFrameId);
-                            animationFrameId = null;
-                            console.log('页面隐藏，停止动画');
-                        }
-                    } else {
-                        if (!animationFrameId) {
-                            initTyping();
-                            console.log('页面可见，重新启动动画');
-                        }
-                    }
-                });
-
-                const scrollToMain = () => {
-                    console.log('scroll');
-                    const target = document.querySelector('.main-content-container');
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-
-                // 窗口大小变化时重置布局
-                window.addEventListener('resize', () => {
-                    if (animationFrameId) {
-                        cancelAnimationFrame(animationFrameId);
-                        initTyping();
-                    }
-                });
-
-
-            </script>
+            <script>const scrollToMain = () => { console.log("scroll"); document.querySelector(".main-content-container").scrollIntoView({ behavior: "smooth" }) }</script>
         </div>
-
-
         <div class="main-content-container flex flex-col justify-between min-h-dvh">
             <div class="main-content-header">
                 <header class="navbar-container px-6 md:px-12">
                     <div class="navbar-content transition-navbar has-home-banner">
-                        <div class="left">
-
-                            <a class="logo-title" href="/images/favicon.jpg">
-                                <h1>
-                                    Welcome
-                                </h1>
-                            </a>
-                        </div>
-
+                        <div class="left"><a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/"><img
+                                    src="/images/redefine-favicon.svg" class="w-full h-full rounded-sm"> </a><a
+                                class="logo-title" href="/" data-navbar-initialized="1">
+                                <h1>Theme Redefine</h1>
+                            </a></div>
                         <div class="right">
-                            <!-- PC -->
                             <div class="desktop">
                                 <ul class="navbar-list">
-
-
-
-
-                                    <li class="navbar-item">
-                                        <!-- Menu -->
-                                        <a class="active" href="/">
-                                            <i class="fa-regular fa-house fa-fw"></i>
-                                            HOME
-                                        </a>
-                                        <!-- Submenu -->
+                                    <li class="navbar-item"><a class="active" href="/"><i
+                                                class="fa-regular fa-house fa-fw"></i> HOME</a></li>
+                                    <li class="navbar-item"><a href="/archives"><i
+                                                class="fa-regular fa-archive fa-fw"></i> ARCHIVES</a></li>
+                                    <li class="navbar-item"><a target="_blank" rel="noopener"
+                                            href="https://redefine-docs.ohevan.com"><i
+                                                class="fa-regular fa-book fa-fw"></i> DOCS</a></li>
+                                    <li class="navbar-item"><a target="_blank" rel="noopener"
+                                            href="https://github.com/EvanNotFound/hexo-theme-redefine"><i
+                                                class="fa-brands fa-github fa-fw"></i> GITHUB</a></li>
+                                    <li class="navbar-item"><a class="has-dropdown" href="#" onclick="&quot;return"
+                                            false;&#34;=""><i class="fa-regular fa-link fa-fw"></i> LINKS <i
+                                                class="fa-solid fa-chevron-down fa-fw"></i></a>
+                                        <ul class="sub-menu">
+                                            <li><a target="_blank" rel="noopener"
+                                                    href="https://ohevan.com/about">ABOUT</a></li>
+                                            <li><a target="_blank" rel="noopener" href="https://ohevan.com">BLOG</a>
+                                            </li>
+                                            <li><a href="/showcase">SHOWCASE</a></li>
+                                        </ul>
                                     </li>
-
-                                    <li class="navbar-item"><a href="#"><i class="fa-regular fa-archive fa-fw"></i>
-                                            ARCHIVES</a></li>
-
-                                    <li class="navbar-item"><a class="has-dropdown" href="#"><i
-                                                class="fa-regular fa-link fa-fw"></i> ABOUT </a>
-
-                                    </li>
-
                                 </ul>
                             </div>
-                            <!-- Mobile -->
                             <div class="mobile">
-
-                                <div class="icon-item navbar-bar">
+                                <div class="icon-item navbar-bar" data-navbar-initialized="1">
                                     <div class="navbar-bar-middle"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Mobile sheet -->
                     <div
                         class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
                         <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
-
-                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
-
-                                <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
-                                    href="/">
-                                    <span>
-                                        HOME
-                                    </span>
-                                    <i class="fa-regular fa-house fa-sm fa-fw"></i>
-
-                                </a>
-                            </li>
-
+                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
+                                data-navbar-initialized="1"><a
+                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                                    href="/"><span>HOME </span><i class="fa-regular fa-house fa-sm fa-fw"></i></a></li>
                             <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
                                 data-navbar-initialized="1"><a
                                     class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full"
-                                    href="#"><span>ARCHIVES </span><i class="fa-regular fa-archive fa-sm fa-fw"></i></a>
-                            </li>
-
+                                    href="/archives"><span>ARCHIVES </span><i
+                                        class="fa-regular fa-archive fa-sm fa-fw"></i></a></li>
                             <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
                                 data-navbar-initialized="1"><a
                                     class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full"
-                                    href="#"><span>ABOUT </span><i class="fa-regular fa-link fa-fw"></a>
+                                    target="_blank" rel="noopener" href="https://redefine-docs.ohevan.com"><span>DOCS
+                                    </span><i class="fa-regular fa-book fa-sm fa-fw"></i></a></li>
+                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
+                                data-navbar-initialized="1"><a
+                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full"
+                                    target="_blank" rel="noopener"
+                                    href="https://github.com/EvanNotFound/hexo-theme-redefine"><span>GITHUB </span><i
+                                        class="fa-brands fa-github fa-sm fa-fw"></i></a></li>
+                            <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                                <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                                    navbar-data-toggle="submenu-Links" data-event-listener-added="true"><span>LINKS
+                                    </span><i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i></div>
+                                <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl"
+                                        data-navbar-initialized="1"><a class="text-third-text-color text-xl"
+                                            target="_blank" rel="noopener" href="https://ohevan.com/about">ABOUT</a>
+                                    </div>
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl"
+                                        data-navbar-initialized="1"><a class="text-third-text-color text-xl"
+                                            target="_blank" rel="noopener" href="https://ohevan.com">BLOG</a></div>
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl"
+                                        data-navbar-initialized="1"><a class="text-third-text-color text-xl"
+                                            href="/showcase">SHOWCASE</a></div>
+                                </div>
                             </li>
-
-
+                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
+                                data-navbar-initialized="1"><a
+                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                                    href="/tags"><span>Tags</span> <i class="fa-regular fa-tags fa-sm fa-fw"></i></a>
+                            </li>
+                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
+                                data-navbar-initialized="1"><a
+                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                                    href="/categories"><span>Categories</span> <i
+                                        class="fa-regular fa-folder fa-sm fa-fw"></i></a></li>
+                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
+                                data-navbar-initialized="1"><a
+                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                                    href="/essays"><span>Shuoshuo</span> <i
+                                        class="fa-regular fa-comment-dots fa-sm fa-fw"></i></a></li>
+                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
+                                data-navbar-initialized="1"><a
+                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                                    href="/masonry"><span>Photos</span> <i
+                                        class="fa-regular fa-images fa-sm fa-fw"></i></a></li>
+                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
+                                data-navbar-initialized="1"><a
+                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                                    href="/bookmarks"><span>Bookmarks</span> <i
+                                        class="fa-regular fa-bookmark fa-sm fa-fw"></i></a></li>
                         </ul>
-
-                        <!-- <div class="statistics flex justify-around my-2.5">
-    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
-        <div class="label text-third-text-color text-sm">Tags</div>
-    </a>
-    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
-        <div class="label text-third-text-color text-sm">Categories</div>
-    </a> -->
-                        <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/">
-                            <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
-                            <div class="label text-third-text-color text-sm">Posts</div>
-                        </a>
-                    </div>
-            </div>
-
-            <div class="window-mask"></div>
-
-            </header>
-        </div>
-
-
-
-
-        <div class="main-content-body transition-fade-up swup-transition-main">
-
-
-            <div class="home-sidebar-container">
-                <div class="sticky-container sticky">
-                    <div class="sidebar-links">
-                        <div class="site-info">
-                            <div class="site-name">Welcome My Friend</div>
-                            <div class="announcement">I will gradually improve my blog.</div>
-                        </div><a class="links" href="/"><i class="fa-regular fa-archive icon-space"></i> <span
-                                class="link-name">Archives</span> </a><a class="links" href="/"><i
-                                class="fa-regular fa-tags icon-space"></i> <span class="link-name">Tags</span> </a><a
-                            class="links" href="/"><i class="fa-regular fa-folder icon-space"></i> <span
-                                class="link-name">Categories</span> </a><a class="links" href="/"><i
-                                class="fa-regular fa-comment-dots icon-space"></i> <span
-                                class="link-name">Shuoshuo</span> </a>
-                        </a>
-                    </div>
-                    <div class="sidebar-content" margintop="">
-                        <div class="avatar flex justify-center"><img src="/images/touxiang.jpg"></div>
-                        <div class="author flex flex-col justify-center my-2.5 mx-0">
-                            <div class="name">小芰的博客</div>
-                            <div class="label">MVP++</div>
-                        </div>
-                        <div class="statistics flex justify-around my-2.5">
-                            <!-- <a
-                                class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+                        <div class="statistics flex justify-around my-2.5"><a
+                                class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags"
+                                data-navbar-initialized="1">
                                 <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
                                 <div class="label text-third-text-color text-sm">Tags</div>
-                            </a>
-                            <a class="item tag-count-item flex flex-col justify-center items-center w-20"
-                                href="/categories">
+                            </a><a class="item tag-count-item flex flex-col justify-center items-center w-20"
+                                href="/categories" data-navbar-initialized="1">
                                 <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
                                 <div class="label text-third-text-color text-sm">Categories</div>
-                            </a> -->
-                            <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="#">
-                                <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
+                            </a><a class="item tag-count-item flex flex-col justify-center items-center w-20"
+                                href="/archives" data-navbar-initialized="1">
+                                <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
                                 <div class="label text-third-text-color text-sm">Posts</div>
-                            </a>
-                        </div>
+                            </a></div>
                     </div>
-                </div>
+                    <div class="window-mask" data-navbar-initialized="1"></div>
+                </header>
             </div>
-
-
-            <div class="main-content">
-                <div class="home-content-container">
-                    <ul class="home-article-list">
-
-                        <li class="home-article-item">
-                            <div id="home-article-thumbnail"
-                                class="home-article-thumbnail relative h-[150px] overflow-hidden rounded-t-large"><a
-                                    href="/model.html"><img src="/img/album.jpg" alt="Lorem Ipsum"
-                                        class="w-full h-full object-cover dark:brightness-75 transition-all"></a></div>
-                            <div class="flex flex-col gap-5 px-7 pb-7 pt-5">
-                                <h3 class="home-article-title"><a href="/model.html">3D模型</a></h3>
-                                <div class="home-article-content markdown-body">在这里我放了一个3D模型。</div>
-                                <div class="home-article-meta-info-container">
-                                    <div class="home-article-meta-info"><span><i
-                                                class="fa-solid fa-calendars"></i>&nbsp; <span class="home-article-date"
-                                                data-date="Tue Jan 09 2007 09:41:05 GMT+0000">2025-3-11
-                                            </span></span><span class="home-article-category"><i
-                                                class="fa-solid fa-folders"></i>&nbsp;<ul>
-                                                <li><a href="#">SOURSE</a>&nbsp;</li>
-                                            </ul></span><span class="home-article-tag"><i
-                                                class="fa-solid fa-tags"></i>&nbsp;<ul>
-                                            </ul></span></div><a href="/model.html">了解更多|Read more<span
-                                            class="seo-reader-text">Hello</span>&nbsp;<i
-                                            class="fa-solid fa-angle-right"></i></a>
-                                </div>
+            <div class="main-content-body transition-fade-up swup-transition-main">
+                <div class="home-sidebar-container">
+                    <div class="sticky-container sticky">
+                        <div class="sidebar-links">
+                            <div class="site-info">
+                                <div class="site-name">Theme Redefine</div>
+                                <div class="announcement">Redefine your writing.</div>
+                            </div><a class="links" href="/archives"><i class="fa-regular fa-archive icon-space"></i>
+                                <span class="link-name">Archives</span> </a><a class="links" href="/tags"><i
+                                    class="fa-regular fa-tags icon-space"></i> <span class="link-name">Tags</span>
+                            </a><a class="links" href="/categories"><i class="fa-regular fa-folder icon-space"></i>
+                                <span class="link-name">Categories</span> </a><a class="links" href="/essays"><i
+                                    class="fa-regular fa-comment-dots icon-space"></i> <span
+                                    class="link-name">Shuoshuo</span> </a><a class="links" href="/masonry"><i
+                                    class="fa-regular fa-images icon-space"></i> <span class="link-name">Photos</span>
+                            </a><a class="links" href="/bookmarks"><i class="fa-regular fa-bookmark icon-space"></i>
+                                <span class="link-name">Bookmarks</span></a>
+                        </div>
+                        <div class="sidebar-content" margintop="">
+                            <div class="avatar flex justify-center"><img src="/images/redefine-avatar.svg"></div>
+                            <div class="author flex flex-col justify-center my-2.5 mx-0">
+                                <div class="name">The Redefine Team</div>
+                                <div class="label">MVP++</div>
                             </div>
-                        </li>
-
-                        <li class="home-article-item">
-                            <div id="home-article-thumbnail"
-                                class="home-article-thumbnail relative h-[150px] overflow-hidden rounded-t-large"><a
-                                    href="/album.html"><img src="/img/album.jpg" alt="Lorem Ipsum"
-                                        class="w-full h-full object-cover dark:brightness-75 transition-all"></a></div>
-                            <div class="flex flex-col gap-5 px-7 pb-7 pt-5">
-                                <h3 class="home-article-title"><a href="/album.html">3D旋转相框</a></h3>
-                                <div class="home-article-content markdown-body">在这里我放了一个3D旋转相框。</div>
-                                <div class="home-article-meta-info-container">
-                                    <div class="home-article-meta-info"><span><i
-                                                class="fa-solid fa-calendars"></i>&nbsp; <span class="home-article-date"
-                                                data-date="Tue Jan 09 2007 09:41:05 GMT+0000">2025-3-11
-                                            </span></span><span class="home-article-category"><i
-                                                class="fa-solid fa-folders"></i>&nbsp;<ul>
-                                                <li><a href="#">SOURSE</a>&nbsp;</li>
-                                            </ul></span><span class="home-article-tag"><i
-                                                class="fa-solid fa-tags"></i>&nbsp;<ul>
-                                            </ul></span></div><a href="/album.html">了解更多|Read more<span
-                                            class="seo-reader-text">Hello</span>&nbsp;<i
-                                            class="fa-solid fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </li>
-
-
-                        <li class="home-article-item">
-                            <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                                <h3 class="home-article-title">
-                                    <a href="/2025/03/09/hello-world/">
-                                        FIND ME
-                                    </a>
-                                </h3>
-                                <div class="home-article-content markdown-body">
-                                    你可以通过这个博客里面的链接找到我！
-                                </div>
-
-                                <div class="home-article-meta-info-container">
-                                    <div class="home-article-meta-info">
-                                        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-                                            <span class="home-article-date"
-                                                data-date="Sun Mar 09 2025 10:22:38 GMT+0800">
-                                                2025-03-09
-                                            </span>
-                                        </span>
+                            <div class="statistics flex justify-around my-2.5"><a
+                                    class="item tag-count-item flex flex-col justify-center items-center w-20"
+                                    href="/tags">
+                                    <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17
                                     </div>
-                                    <a href="/2025/03/09/hello-world/">了解更多|Read more<span class="seo-reader-text">Hello
-                                            World</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                    <div class="home-paginator px-7 py-5">
-                        <div class="paginator">
-                            <span class="page-number current">1</span>
+                                    <div class="label text-third-text-color text-sm">Tags</div>
+                                </a><a class="item tag-count-item flex flex-col justify-center items-center w-20"
+                                    href="/categories">
+                                    <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12
+                                    </div>
+                                    <div class="label text-third-text-color text-sm">Categories</div>
+                                </a><a class="item tag-count-item flex flex-col justify-center items-center w-20"
+                                    href="/archives">
+                                    <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
+                                    <div class="label text-third-text-color text-sm">Posts</div>
+                                </a></div>
                         </div>
-
                     </div>
                 </div>
-
+                <div class="main-content">
+                    <div class="home-content-container">
+                        <ul class="home-article-list">
+                            <li class="home-article-item">
+                                <div
+                                    class="absolute top-[12px] right-[12px] text-[0.7rem] text-third-text-color rounded-medium bg-background-color-transparent-15 py-[2px] px-[10px] border border-border-color z-1 hover:text-first-text-color cursor-default">
+                                    <i class="fa-regular fa-thumbtack mr-[3px] text-[0.65rem]"></i>Sticky
+                                </div>
+                                <div id="home-article-thumbnail"
+                                    class="home-article-thumbnail relative h-[150px] overflow-hidden rounded-t-large"><a
+                                        href="/2022/10/02/theme-demo/"><img
+                                            src="https://assets.ohevan.com/img/d00ebf818778f3aad141173167ad0e52.png"
+                                            alt="主题样式 Demo"
+                                            class="w-full h-full object-cover dark:brightness-75 transition-all"></a>
+                                </div>
+                                <div class="flex flex-col gap-5 px-7 pb-7 pt-5">
+                                    <h3 class="home-article-title"><a href="/2022/10/02/theme-demo/">主题样式 Demo</a></h3>
+                                    <div class="home-article-content markdown-body">H1 标题 H2 标题 H3 标题 H4 标题 H5 标题 H6
+                                        标题加粗 斜体 删除线 这是一段文本 行内代码 1 代码块 1print ("代码高亮") 功能展示 Font Awesome Pro v6.2.1Solid:
+                                        Regular: Light: Thin: Duotone: Sharp Solid: Note Larg...</div>
+                                    <div class="home-article-meta-info-container">
+                                        <div class="home-article-meta-info"><span><i
+                                                    class="fa-solid fa-calendars"></i>&nbsp; <span
+                                                    class="home-article-date"
+                                                    data-date="Sun Oct 02 2022 19:07:05 GMT+0000">2022-10-02
+                                                </span></span><span class="home-article-category"><i
+                                                    class="fa-solid fa-folders"></i>&nbsp;<ul>
+                                                    <li><a href="/categories/Demo/">Demo</a>&nbsp;</li>
+                                                    <li>&gt;</li>
+                                                    <li><a href="/categories/Demo/Hexo/">Hexo</a>&nbsp;</li>
+                                                    <li>&gt;</li>
+                                                    <li><a href="/categories/Demo/Hexo/Redefine-Theme/">Redefine
+                                                            Theme</a>&nbsp;</li>
+                                                </ul></span><span class="home-article-tag"><i
+                                                    class="fa-solid fa-tags"></i>&nbsp;<ul>
+                                                    <li><a href="/tags/Demo/">Demo</a>&nbsp;</li>
+                                                    <li>| <a href="/tags/Hexo/">Hexo</a>&nbsp;</li>
+                                                    <li>| <a href="/tags/Hexo-Theme/">Hexo Theme</a>&nbsp;</li>
+                                                </ul></span></div><a href="/2022/10/02/theme-demo/">Read more<span
+                                                class="seo-reader-text"> 主题样式 Demo</span>&nbsp;<i
+                                                class="fa-solid fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="home-article-item">
+                                <div id="home-article-thumbnail"
+                                    class="home-article-thumbnail relative h-[150px] overflow-hidden rounded-t-large"><a
+                                        href="/2023/11/12/music-journey/"><img
+                                            src="https://assets.ohevan.com/img/dcb9eb79efc29322f65f96d9d4ae7782.jpeg"
+                                            alt="The Evolving Landscape of Music: A Journey Through Time and Technology"
+                                            class="w-full h-full object-cover dark:brightness-75 transition-all"></a>
+                                </div>
+                                <div class="flex flex-col gap-5 px-7 pb-7 pt-5">
+                                    <h3 class="home-article-title"><a href="/2023/11/12/music-journey/">The Evolving
+                                            Landscape of Music: A Journey Through Time and Technology</a></h3>
+                                    <div class="home-article-content markdown-body">Music, an art form that strikes a
+                                        chord deep within the human spirit, has been our steadfast companion through the
+                                        ages. From the primal beats of ancient drums to the intricate digital symphonies
+                                        o...</div>
+                                    <div class="home-article-meta-info-container">
+                                        <div class="home-article-meta-info"><span><i
+                                                    class="fa-solid fa-calendars"></i>&nbsp; <span
+                                                    class="home-article-date"
+                                                    data-date="Sun Nov 12 2023 12:30:00 GMT+0000">2023-11-12
+                                                </span></span><span class="home-article-category"><i
+                                                    class="fa-solid fa-folders"></i>&nbsp;<ul>
+                                                    <li><a href="/categories/Music-Appreciation/">Music
+                                                            Appreciation</a>&nbsp;</li>
+                                                    <li>&gt;</li>
+                                                    <li><a
+                                                            href="/categories/Music-Appreciation/Technological-Advancements/">Technological
+                                                            Advancements</a>&nbsp;</li>
+                                                </ul></span><span class="home-article-tag"><i
+                                                    class="fa-solid fa-tags"></i>&nbsp;<ul>
+                                                    <li><a href="/tags/Markdown/">Markdown</a>&nbsp;</li>
+                                                    <li>| <a href="/tags/Hexo/">Hexo</a>&nbsp;</li>
+                                                    <li>| <a href="/tags/Music-History/">Music History</a>&nbsp;</li>
+                                                </ul></span></div><a href="/2023/11/12/music-journey/">Read more<span
+                                                class="seo-reader-text">The Evolving Landscape of Music: A Journey
+                                                Through Time and Technology</span>&nbsp;<i
+                                                class="fa-solid fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="home-article-item">
+                                <div id="home-article-thumbnail"
+                                    class="home-article-thumbnail relative h-[150px] overflow-hidden rounded-t-large"><a
+                                        href="/2023/11/12/another-lorem/"><img
+                                            src="https://assets.ohevan.com/img/b133333c5cd168178f0920cb1b113fb9.jpeg"
+                                            alt="Exploring the Versatility of Placeholder Texts in Design"
+                                            class="w-full h-full object-cover dark:brightness-75 transition-all"></a>
+                                </div>
+                                <div class="flex flex-col gap-5 px-7 pb-7 pt-5">
+                                    <h3 class="home-article-title"><a href="/2023/11/12/another-lorem/">Exploring the
+                                            Versatility of Placeholder Texts in Design</a></h3>
+                                    <div class="home-article-content markdown-body">When embarking on a design project,
+                                        whether it’s for print or digital media, the visual layout holds paramount
+                                        importance. Among the myriad of tools designers employ, one unassuming yet
+                                        indispensab...</div>
+                                    <div class="home-article-meta-info-container">
+                                        <div class="home-article-meta-info"><span><i
+                                                    class="fa-solid fa-calendars"></i>&nbsp; <span
+                                                    class="home-article-date"
+                                                    data-date="Sun Nov 12 2023 10:15:00 GMT+0000">2023-11-12
+                                                </span></span><span class="home-article-category"><i
+                                                    class="fa-solid fa-folders"></i>&nbsp;<ul>
+                                                    <li><a href="/categories/User-Interface-Design/">User Interface
+                                                            Design</a>&nbsp;</li>
+                                                    <li>&gt;</li>
+                                                    <li><a href="/categories/User-Interface-Design/Creative-Process/">Creative
+                                                            Process</a>&nbsp;</li>
+                                                </ul></span><span class="home-article-tag"><i
+                                                    class="fa-solid fa-tags"></i>&nbsp;<ul>
+                                                    <li><a href="/tags/Design-Insights/">Design Insights</a>&nbsp;</li>
+                                                    <li>| <a href="/tags/Creative-Tools/">Creative Tools</a>&nbsp;</li>
+                                                    <li>| <a href="/tags/Web-Development/">Web Development</a>&nbsp;
+                                                    </li>
+                                                </ul></span></div><a href="/2023/11/12/another-lorem/">Read more<span
+                                                class="seo-reader-text">Exploring the Versatility of Placeholder Texts
+                                                in Design</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="home-article-item">
+                                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                                    <h3 class="home-article-title"><a href="/2023/01/16/mermaidjs-demo/">Mermaid JS
+                                            Demo</a></h3>
+                                    <div class="home-article-content markdown-body">123456789sequenceDiagram
+                                        Alice-&gt;&gt;John: Hello John, how are you? loop Healthcheck John-&gt;&gt;John:
+                                        Fight against hypochondria end Note right of John: Rational thoughts! John-...
+                                    </div>
+                                    <div class="home-article-meta-info-container">
+                                        <div class="home-article-meta-info"><span><i
+                                                    class="fa-solid fa-calendars"></i>&nbsp; <span
+                                                    class="home-article-date"
+                                                    data-date="Mon Jan 16 2023 20:08:06 GMT+0000">2023-01-16
+                                                </span></span><span class="home-article-category"><i
+                                                    class="fa-solid fa-folders"></i>&nbsp;<ul>
+                                                    <li><a href="/categories/Demo/">Demo</a>&nbsp;</li>
+                                                    <li>&gt;</li>
+                                                    <li><a href="/categories/Demo/Mermaid-JS/">Mermaid JS</a>&nbsp;</li>
+                                                </ul></span><span class="home-article-tag"><i
+                                                    class="fa-solid fa-tags"></i>&nbsp;<ul>
+                                                    <li><a href="/tags/Demo/">Demo</a>&nbsp;</li>
+                                                    <li>| <a href="/tags/Mermaid-JS/">Mermaid JS</a>&nbsp;</li>
+                                                </ul></span></div><a href="/2023/01/16/mermaidjs-demo/">Read more<span
+                                                class="seo-reader-text">Mermaid JS Demo</span>&nbsp;<i
+                                                class="fa-solid fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="home-article-item">
+                                <div id="home-article-thumbnail"
+                                    class="home-article-thumbnail relative h-[150px] overflow-hidden rounded-t-large"><a
+                                        href="/2007/01/09/Lorem%20Ipsum/"><img
+                                            src="https://assets.ohevan.com/img/d501efd15c4a39c92fd12faddf2b693d.webp"
+                                            alt="Lorem Ipsum"
+                                            class="w-full h-full object-cover dark:brightness-75 transition-all"></a>
+                                </div>
+                                <div class="flex flex-col gap-5 px-7 pb-7 pt-5">
+                                    <h3 class="home-article-title"><a href="/2007/01/09/Lorem%20Ipsum/">Lorem Ipsum</a>
+                                    </h3>
+                                    <div class="home-article-content markdown-body">Lorem ipsum dolor sit amet,
+                                        consectetur adipiscing elit. Sed euismod, magna vel tempor bibendum, justo massa
+                                        bibendum urna, a tincidunt metus velit vel velit. Praesent velit leo, pharetra
+                                        id mauris...</div>
+                                    <div class="home-article-meta-info-container">
+                                        <div class="home-article-meta-info"><span><i
+                                                    class="fa-solid fa-calendars"></i>&nbsp; <span
+                                                    class="home-article-date"
+                                                    data-date="Tue Jan 09 2007 09:41:05 GMT+0000">2007-01-09
+                                                </span></span><span class="home-article-category"><i
+                                                    class="fa-solid fa-folders"></i>&nbsp;<ul>
+                                                    <li><a href="/categories/Demo/">Demo</a>&nbsp;</li>
+                                                    <li>&gt;</li>
+                                                    <li><a href="/categories/Demo/Lorem-Ipsum/">Lorem Ipsum</a>&nbsp;
+                                                    </li>
+                                                </ul></span><span class="home-article-tag"><i
+                                                    class="fa-solid fa-tags"></i>&nbsp;<ul>
+                                                    <li><a href="/tags/Demo/">Demo</a>&nbsp;</li>
+                                                    <li>| <a href="/tags/Lorem-Ipsum/">Lorem Ipsum</a>&nbsp;</li>
+                                                </ul></span></div><a href="/2007/01/09/Lorem%20Ipsum/">Read more<span
+                                                class="seo-reader-text">Lorem Ipsum</span>&nbsp;<i
+                                                class="fa-solid fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="home-article-item">
+                                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                                    <h3 class="home-article-title"><a href="/2007/01/09/hello-world/">Hello World</a>
+                                    </h3>
+                                    <div class="home-article-content markdown-body">Welcome to Hexo! This is your very
+                                        first post. Check documentation for more info. If you get any problems when
+                                        using Hexo, you can find the answer in troubleshooting or you can ask me on
+                                        GitHub. Qu...</div>
+                                    <div class="home-article-meta-info-container">
+                                        <div class="home-article-meta-info"><span><i
+                                                    class="fa-solid fa-calendars"></i>&nbsp; <span
+                                                    class="home-article-date"
+                                                    data-date="Tue Jan 09 2007 09:41:05 GMT+0000">2007-01-09
+                                                </span></span><span class="home-article-category"><i
+                                                    class="fa-solid fa-folders"></i>&nbsp;<ul>
+                                                    <li><a href="/categories/Start/">Start</a>&nbsp;</li>
+                                                    <li>&gt;</li>
+                                                    <li><a href="/categories/Start/Run/">Run</a>&nbsp;</li>
+                                                </ul></span><span class="home-article-tag"><i
+                                                    class="fa-solid fa-tags"></i>&nbsp;<ul>
+                                                    <li><a href="/tags/Demo/">Demo</a>&nbsp;</li>
+                                                    <li>| <a href="/tags/First-Post/">First Post</a>&nbsp;</li>
+                                                    <li>| <a href="/tags/Hello-World/">Hello World</a>&nbsp;</li>
+                                                </ul></span></div><a href="/2007/01/09/hello-world/">Read more<span
+                                                class="seo-reader-text">Hello World</span>&nbsp;<i
+                                                class="fa-solid fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="home-article-item">
+                                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                                    <h3 class="home-article-title"><a href="/2007/01/09/markdown-test/">Markdown</a>
+                                    </h3>
+                                    <div class="home-article-content markdown-body">OverviewPhilosophyMarkdown is
+                                        designed to be easy-to-read and easy-to-write, prioritizing readability above
+                                        all. A Markdown-formatted document should be publishable as-is, in plain text,
+                                        without ap...</div>
+                                    <div class="home-article-meta-info-container">
+                                        <div class="home-article-meta-info"><span><i
+                                                    class="fa-solid fa-calendars"></i>&nbsp; <span
+                                                    class="home-article-date"
+                                                    data-date="Tue Jan 09 2007 09:41:05 GMT+0000">2007-01-09
+                                                </span></span><span class="home-article-category"><i
+                                                    class="fa-solid fa-folders"></i>&nbsp;<ul>
+                                                    <li><a href="/categories/Start/">Start</a>&nbsp;</li>
+                                                    <li>&gt;</li>
+                                                    <li><a href="/categories/Start/Markdown/">Markdown</a>&nbsp;</li>
+                                                </ul></span><span class="home-article-tag"><i
+                                                    class="fa-solid fa-tags"></i>&nbsp;<ul>
+                                                    <li><a href="/tags/Demo/">Demo</a>&nbsp;</li>
+                                                    <li>| <a href="/tags/Markdown/">Markdown</a>&nbsp;</li>
+                                                    <li>| <a href="/tags/Hexo/">Hexo</a>&nbsp;</li>
+                                                </ul></span></div><a href="/2007/01/09/markdown-test/">Read more<span
+                                                class="seo-reader-text">Markdown</span>&nbsp;<i
+                                                class="fa-solid fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="home-paginator px-7 py-5">
+                            <div class="paginator"><span class="page-number current">1</span></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
-        </div>
-
-        <div class="main-content-footer">
-            <footer
-                class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
-                <div class="info-container py-3 text-center">
-
-                    <div class="text-center">
-                        &copy;
-
-                        <span>2022</span>
-                        -
-
-                        2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat"
-                            style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">小芰的博客</a>
-
-
-                        <p class="post-count space-x-0.5">
-                            <span>
-                                3 posts in total
-                            </span>
-
-                        </p>
-
+            <div class="main-content-footer">
+                <footer
+                    class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+                    <div class="info-container py-3 text-center">
+                        <div class="text-center">© <span>2022</span> - 2025&nbsp;&nbsp;<i
+                                class="fa-solid fa-code-pull-request"></i>&nbsp;&nbsp;<a href="/">The Redefine Team</a>
+                            <p class="post-count space-x-0.5"><span>7 posts in total </span><span>4.6k words in
+                                    total</span></p>
+                        </div>
+                        <script data-swup-reload-script="" src="https://cn.vercount.one/js"></script>
+                        <div
+                            class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                            <span id="busuanzi_container_site_uv" class="lg:!block" style="display: inline;"><span
+                                    class="text-sm">VISITOR COUNT</span> <span id="busuanzi_value_site_uv">10338</span>
+                            </span><span id="busuanzi_container_site_pv" class="lg:!block"
+                                style="display: inline;"><span class="text-sm">TOTAL PAGE VIEWS</span> <span
+                                    id="busuanzi_value_site_pv">91551</span></span>
+                        </div>
+                        <div
+                            class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+                            <span class="lg:block text-sm">POWERED BY <!--?xml version="1.0" encoding="utf-8"?--><svg
+                                    class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512"
+                                    enable-background="new 0 0 512 512" xml:space="preserve">
+                                    <path fill="#0E83CD"
+                                        d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z">
+                                    </path>
+                                </svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span> <span
+                                class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank"
+                                    href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine
+                                    v2.8.2</a></span>
+                        </div>
+                        <div>Blog up for <span class="odometer odometer-auto-theme" id="runtime_days">
+                                <div class="odometer-inside"><span class="odometer-digit"><span
+                                            class="odometer-digit-spacer">8</span><span
+                                            class="odometer-digit-inner"><span class="odometer-ribbon"><span
+                                                    class="odometer-ribbon-inner"><span
+                                                        class="odometer-value">9</span></span></span></span></span><span
+                                        class="odometer-digit"><span class="odometer-digit-spacer">8</span><span
+                                            class="odometer-digit-inner"><span class="odometer-ribbon"><span
+                                                    class="odometer-ribbon-inner"><span
+                                                        class="odometer-value">3</span></span></span></span></span><span
+                                        class="odometer-digit"><span class="odometer-digit-spacer">8</span><span
+                                            class="odometer-digit-inner"><span class="odometer-ribbon"><span
+                                                    class="odometer-ribbon-inner"><span
+                                                        class="odometer-value">7</span></span></span></span></span>
+                                </div>
+                            </span> days <span class="odometer odometer-auto-theme" id="runtime_hours">
+                                <div class="odometer-inside"><span class="odometer-digit"><span
+                                            class="odometer-digit-spacer">8</span><span
+                                            class="odometer-digit-inner"><span class="odometer-ribbon"><span
+                                                    class="odometer-ribbon-inner"><span
+                                                        class="odometer-value">6</span></span></span></span></span>
+                                </div>
+                            </span> hrs <span class="odometer odometer-auto-theme" id="runtime_minutes">
+                                <div class="odometer-inside"><span class="odometer-digit"><span
+                                            class="odometer-digit-spacer">8</span><span
+                                            class="odometer-digit-inner"><span class="odometer-ribbon"><span
+                                                    class="odometer-ribbon-inner"><span
+                                                        class="odometer-value">4</span></span></span></span></span><span
+                                        class="odometer-digit"><span class="odometer-digit-spacer">8</span><span
+                                            class="odometer-digit-inner"><span class="odometer-ribbon"><span
+                                                    class="odometer-ribbon-inner"><span
+                                                        class="odometer-value">4</span></span></span></span></span>
+                                </div>
+                            </span> Min <span
+                                class="odometer odometer-auto-theme                                                                                                                                                                                                                                      odometer-animating-up odometer-animating"
+                                id="runtime_seconds">
+                                <div class="odometer-inside"><span class="odometer-digit"><span
+                                            class="odometer-digit-spacer">8</span><span
+                                            class="odometer-digit-inner"><span class="odometer-ribbon"><span
+                                                    class="odometer-ribbon-inner">
+                                                    <div
+                                                        class="odometer-value odometer-last-value odometer-first-value">
+                                                        3</div>
+                                                </span></span></span></span><span class="odometer-digit"><span
+                                            class="odometer-digit-spacer">8</span><span
+                                            class="odometer-digit-inner"><span class="odometer-ribbon"><span
+                                                    class="odometer-ribbon-inner">
+                                                    <div class="odometer-value odometer-first-value">2</div>
+                                                    <div class="odometer-value odometer-last-value">3</div>
+                                                </span></span></span></span></div>
+                            </span> Sec</div>
+                        <script
+                            data-swup-reload-script="">try { function odometer_init() { document.querySelectorAll(".odometer").forEach(e => { new Odometer({ el: e, format: "( ddd).dd", duration: 200 }) }) } odometer_init() } catch (e) { }</script>
+                        <script data-swup-reload-script="" defer="" src="https://events.ohevan.com/script.js"
+                            data-website-id="d70a02b2-4de2-4995-8a26-7bc745a8b460"></script>
                     </div>
-
-                    <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
-                    <!-- <div
-                        class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
-
-                        <span id="busuanzi_container_site_uv" class="lg:!block">
-                            <span class="text-sm">VISITOR COUNT</span>
-                            <span id="busuanzi_value_site_uv"></span>
-                        </span>
-
-
-                        <span id="busuanzi_container_site_pv" class="lg:!block">
-                            <span class="text-sm">TOTAL PAGE VIEWS</span>
-                            <span id="busuanzi_value_site_pv"></span>
-                        </span>
-
-                    </div> -->
-
-                    <!-- <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
-            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
-            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
-        </div> -->
-
-
-                    <div>
-                        Blog up for <span class="odometer" id="runtime_days"></span> days <span class="odometer"
-                            id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span
-                            class="odometer" id="runtime_seconds"></span> Sec
-                    </div>
-
-
-                    <script data-swup-reload-script>
-                        try {
-                            function odometer_init() {
-                                const elements = document.querySelectorAll('.odometer');
-                                elements.forEach(el => {
-                                    new Odometer({
-                                        el,
-                                        format: '( ddd).dd',
-                                        duration: 200
-                                    });
-                                });
-                            }
-                            odometer_init();
-                        } catch (error) { }
-                    </script>
-
-
-
-                </div>
-            </footer>
+                </footer>
+            </div>
         </div>
-        </div>
-
-
-
         <div class="right-side-tools-container">
             <div class="side-tools-container">
                 <ul class="hidden-tools-list">
-                    <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
-                        <i class="fa-regular fa-magnifying-glass-plus"></i>
-                    </li>
-
-                    <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
-                        <i class="fa-regular fa-magnifying-glass-minus"></i>
-                    </li>
-
-                    <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
-                        <i class="fa-regular fa-moon"></i>
-                    </li>
-
-                    <!-- rss -->
-
-
-
-
-                    <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
-                        <i class="fa-regular fa-arrow-down"></i>
-                    </li>
+                    <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center"><i
+                            class="fa-regular fa-magnifying-glass-plus"></i></li>
+                    <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center"><i
+                            class="fa-regular fa-magnifying-glass-minus"></i></li>
+                    <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center"><i
+                            class="fa-regular fa-moon"></i></li>
+                    <li class="right-bottom-tools rss flex justify-center items-center"><a
+                            class="flex justify-center items-center" href="/atom.xml" target="_blank"><i
+                                class="fa-regular fa-rss"></i></a></li>
+                    <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center"><i
+                            class="fa-regular fa-arrow-down"></i></li>
                 </ul>
-
                 <ul class="visible-tools-list">
-                    <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
-                        <i class="fa-regular fa-cog fa-spin"></i>
-                    </li>
-
-                    <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
-                        <i class="arrow-up fas fa-arrow-up"></i>
-                        <span class="percent"></span>
-                    </li>
-
-
+                    <li class="right-bottom-tools toggle-tools-list flex justify-center items-center"><i
+                            class="fa-regular fa-cog fa-spin"></i></li>
+                    <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center show"><i
+                            class="arrow-up fas fa-arrow-up"></i> <span class="percent">61</span></li>
                 </ul>
             </div>
         </div>
-
-        <div class="image-viewer-container">
-            <img src="">
-        </div>
-
-
-
+        <div class="image-viewer-container"><img src=""></div>
     </main>
 
 
