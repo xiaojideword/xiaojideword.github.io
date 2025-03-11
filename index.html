@@ -289,11 +289,10 @@
                                 <ul class="navbar-list">
                                     <li class="navbar-item"><a class="active" href="/"><i
                                                 class="fa-regular fa-house fa-fw"></i> HOME</a></li>
-                                    <li class="navbar-item"><a href="/archives"><i
-                                                class="fa-regular fa-archive fa-fw"></i> ARCHIVES</a></li>
+                                    <li class="navbar-item"><a href="#"><i class="fa-regular fa-archive fa-fw"></i>
+                                            ARCHIVES</a></li>
                                     <li class="navbar-item"><a class="has-dropdown" href="#"><i
-                                                class="fa-regular fa-link fa-fw"></i> LINKS <i
-                                                class="fa-solid fa-chevron-down fa-fw"></i></a>
+                                                class="fa-regular fa-link fa-fw"></i> ABOUT </a>
                                     </li>
                                 </ul>
                             </div>
@@ -304,33 +303,54 @@
                             </div>
                         </div>
                     </div>
+
+
                     <div
                         class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
                         <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+
+                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+
+                                <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                                    href="/">
+                                    <span>
+                                        HOME
+                                    </span>
+                                    <i class="fa-regular fa-house fa-sm fa-fw"></i>
+
+                                </a>
+                            </li>
+
                             <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
                                 data-navbar-initialized="1"><a
-                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
-                                    href="/"><span>HOME </span><i class="fa-regular fa-house fa-sm fa-fw"></i></a></li>
+                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full"
+                                    href="#"><span>ARCHIVES </span><i class="fa-regular fa-archive fa-sm fa-fw"></i></a>
+                            </li>
+
+                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
+                                data-navbar-initialized="1"><a
+                                    class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full"
+                                    href="#"><span>ABOUT </span></a>
+                            </li>
 
                         </ul>
+
                         <div class="statistics flex justify-around my-2.5">
-                            <!-- <a
-                                class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags"
-                                data-navbar-initialized="1">
-                                <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
-                                <div class="label text-third-text-color text-sm">Tags</div>
-                            </a><a class="item tag-count-item flex flex-col justify-center items-center w-20"
-                                href="/categories" data-navbar-initialized="1">
-                                <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
-                                <div class="label text-third-text-color text-sm">Categories</div>
-                            </a> -->
-                            <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/"
-                                data-navbar-initialized="1">
+                            <!-- <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a> -->
+                            <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/">
                                 <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
                                 <div class="label text-third-text-color text-sm">Posts</div>
                             </a>
                         </div>
                     </div>
+
                     <div class="window-mask" data-navbar-initialized="1"></div>
                 </header>
             </div>
@@ -385,39 +405,61 @@
                             <li class="home-article-item">
                                 <div id="home-article-thumbnail"
                                     class="home-article-thumbnail relative h-[150px] overflow-hidden rounded-t-large"><a
-                                        href="/2007/01/09/Lorem%20Ipsum/"><img
-                                            src="https://assets.ohevan.com/img/d501efd15c4a39c92fd12faddf2b693d.webp"
-                                            alt="Lorem Ipsum"
+                                        href="/model.html"><img src="/img/album.png" alt="Lorem Ipsum"
                                             class="w-full h-full object-cover dark:brightness-75 transition-all"></a>
                                 </div>
                                 <div class="flex flex-col gap-5 px-7 pb-7 pt-5">
-                                    <h3 class="home-article-title"><a href="/2007/01/09/Lorem%20Ipsum/">Lorem Ipsum</a>
+                                    <h3 class="home-article-title"><a href="/model.html">3D模型</a>
                                     </h3>
-                                    <div class="home-article-content markdown-body">Lorem ipsum dolor sit amet,
-                                        consectetur adipiscing elit. Sed euismod, magna vel tempor bibendum, justo massa
-                                        bibendum urna, a tincidunt metus velit vel velit. Praesent velit leo, pharetra
-                                        id mauris...</div>
+                                    <div class="home-article-content markdown-body">在这里面我放了一个3D模型。</div>
                                     <div class="home-article-meta-info-container">
                                         <div class="home-article-meta-info"><span><i
                                                     class="fa-solid fa-calendars"></i>&nbsp; <span
                                                     class="home-article-date"
-                                                    data-date="Tue Jan 09 2007 09:41:05 GMT+0000">2007-01-09
+                                                    data-date="Tue Jan 09 2007 09:41:05 GMT+0000">2025-03-11
                                                 </span></span><span class="home-article-category"><i
                                                     class="fa-solid fa-folders"></i>&nbsp;<ul>
-                                                    <li><a href="/categories/Demo/">Demo</a>&nbsp;</li>
+                                                    <li><a href="#">Sourse</a>&nbsp;</li>
                                                     <li>&gt;</li>
-                                                    <li><a href="/categories/Demo/Lorem-Ipsum/">Lorem Ipsum</a>&nbsp;
+                                                    <li><a href="#">3D</a>&nbsp;
                                                     </li>
-                                                </ul></span><span class="home-article-tag"><i
-                                                    class="fa-solid fa-tags"></i>&nbsp;<ul>
-                                                    <li><a href="/tags/Demo/">Demo</a>&nbsp;</li>
-                                                    <li>| <a href="/tags/Lorem-Ipsum/">Lorem Ipsum</a>&nbsp;</li>
-                                                </ul></span></div><a href="/2007/01/09/Lorem%20Ipsum/">Read more<span
-                                                class="seo-reader-text">Lorem Ipsum</span>&nbsp;<i
+                                                </ul></span>
+                                        </div><a href="/model.html">了解更多|Read more<span
+                                                class="seo-reader-text">3D</span>&nbsp;<i
                                                 class="fa-solid fa-angle-right"></i></a>
                                     </div>
                                 </div>
                             </li>
+
+                            <li class="home-article-item">
+                                <div id="home-article-thumbnail"
+                                    class="home-article-thumbnail relative h-[150px] overflow-hidden rounded-t-large"><a
+                                        href="/album.html"><img src="/img/album.png" alt="Lorem Ipsum"
+                                            class="w-full h-full object-cover dark:brightness-75 transition-all"></a>
+                                </div>
+                                <div class="flex flex-col gap-5 px-7 pb-7 pt-5">
+                                    <h3 class="home-article-title"><a href="/album.html">3D旋转相册</a>
+                                    </h3>
+                                    <div class="home-article-content markdown-body">在这里面我放了一个3D旋转相册。</div>
+                                    <div class="home-article-meta-info-container">
+                                        <div class="home-article-meta-info"><span><i
+                                                    class="fa-solid fa-calendars"></i>&nbsp; <span
+                                                    class="home-article-date"
+                                                    data-date="Tue Jan 09 2007 09:41:05 GMT+0000">2025-03-11
+                                                </span></span><span class="home-article-category"><i
+                                                    class="fa-solid fa-folders"></i>&nbsp;<ul>
+                                                    <li><a href="#">Sourse</a>&nbsp;</li>
+                                                    <li>&gt;</li>
+                                                    <li><a href="#">3D</a>&nbsp;
+                                                    </li>
+                                                </ul></span>
+                                        </div><a href="/album.html">了解更多|Read more<span
+                                                class="seo-reader-text">3D</span>&nbsp;<i
+                                                class="fa-solid fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </li>
+
                             <li class="home-article-item">
                                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                                     <h3 class="home-article-title"><a href="/2025/03/09/hello-world/">Hello World</a>
@@ -441,7 +483,7 @@
                                                     <li><a href="/tags/Demo/">Demo</a>&nbsp;</li>
                                                     <li>| <a href="/tags/First-Post/">First Post</a>&nbsp;</li>
                                                     <li>| <a href="/tags/Hello-World/">Hello World</a>&nbsp;</li>
-                                                </ul></span></div><a href="/2007/01/09/hello-world/">Read more<span
+                                                </ul></span></div><a href="/2025/03/09/hello-world/">Read more<span
                                                 class="seo-reader-text">Hello World</span>&nbsp;<i
                                                 class="fa-solid fa-angle-right"></i></a>
                                     </div>
