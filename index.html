@@ -337,7 +337,10 @@
                             </div>
                             <div class="mobile">
                                 <div class="icon-item navbar-bar" data-navbar-initialized="1">
-                                    <div class="navbar-bar-middle"></div>
+                                    <div class="navbar-bar-middle">
+                                        ::before
+                                        ::after
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -348,37 +351,42 @@
                         class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
                         <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
 
-                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
-
+                            <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
+                                data-navbar-initialized="1">
                                 <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
-                                    href="/">
+                                    href="/" rel="noopener">
                                     <span>
                                         HOME
                                     </span>
                                     <i class="fa-regular fa-house fa-sm fa-fw"></i>
-
                                 </a>
                             </li>
 
                             <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
                                 data-navbar-initialized="1"><a
                                     class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full"
-                                    href="#"><span>ARCHIVES </span><i class="fa-regular fa-archive fa-sm fa-fw"></i></a>
+                                    href="#" rel="noopener"><span>ARCHIVES </span><i
+                                        class="fa-regular fa-archive fa-sm fa-fw"></i></a>
                             </li>
 
                             <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"
                                 data-navbar-initialized="1"><a
                                     class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full"
-                                    href="#"><span>ABOUT </span></a>
+                                    href="#" rel="noopener"><span>ABOUT </span></a>
                             </li>
 
                         </ul>
 
+
+
                         <div class="statistics flex justify-around my-2.5">
-                            <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/">
+
+                            <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/"
+                                data-navbar-initialized="1">
                                 <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
                                 <div class="label text-third-text-color text-sm">Posts</div>
                             </a>
+
                         </div>
                     </div>
 
